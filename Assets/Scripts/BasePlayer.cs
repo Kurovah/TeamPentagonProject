@@ -7,7 +7,7 @@ public class BasePlayer : MonoBehaviour
     CharacterController character;
     Vector3 velocity;
     public float jumpheight, movespeed, gravity;
-    public int jumpBuffer;
+    bool grounded;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +17,10 @@ public class BasePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.01f, LayerMask.GetMask("Solid"));
         velocity.x = Input.GetAxis("Horizontal") * movespeed * Time.deltaTime;
 
-        if (character.isGrounded)
+        if (grounded)
         {
             velocity.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
