@@ -23,7 +23,7 @@ public class CameraBehaviour : MonoBehaviour
 
     void SetCamPos()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position,.05f);
+        transform.position = target.position;
         vcam.localPosition = new Vector3(0,0,-zoom);
     }
 }
