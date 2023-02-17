@@ -23,7 +23,12 @@ public class CameraBehaviour : MonoBehaviour
 
     void SetCamPos()
     {
-        transform.position = target.position;
+        if (target == null)
+            return;
+
+
+        transform.position = target.position + offset;
         vcam.localPosition = new Vector3(0,0,-zoom);
+        vcam.LookAt(target.position);
     }
 }

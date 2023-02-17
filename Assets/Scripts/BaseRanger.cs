@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using Photon.Pun;
 
-public class BaseRanger : MonoBehaviour
+public class BaseRanger : MonoBehaviourPunCallbacks
 {
     public Rigidbody playerRB;
     public Vector3 velocity;
@@ -42,35 +44,38 @@ public class BaseRanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckGround();
-        grounded = hitList.Count > 0;
-
-        if (grounded && velocity.y < 0)
+        if (photonView.IsMine)
         {
-            velocity.y = 0;
+            CheckGround();
+            grounded = hitList.Count > 0;
 
-            //snap to floor
-            transform.position = new Vector3(
-                transform.position.x,
-                GetMaxHeight(),
-                transform.position.z
-                );
+            if (grounded && velocity.y < 0)
+            {
+                velocity.y = 0;
+
+                //snap to floor
+                transform.position = new Vector3(
+                    transform.position.x,
+                    GetMaxHeight(),
+                    transform.position.z
+                    );
+            }
+
+            switch (state)
+            {
+                case CharacterStates.normal:
+                    StateNormal();
+                    break;
+                case CharacterStates.usingAbility:
+                    StateUsingAbility();
+                    break;
+            }
+
+
+
+            velocity.y -= gravity;
+            playerRB.velocity = velocity;
         }
-
-        switch (state)
-        {
-            case CharacterStates.normal:
-                StateNormal();
-                break;
-            case CharacterStates.usingAbility:
-                StateUsingAbility();
-                break;
-        }
-
-
-
-        velocity.y -= gravity;
-        playerRB.velocity = velocity;
         
     }
 

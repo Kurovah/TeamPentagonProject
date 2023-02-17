@@ -116,10 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078c76b9e584ce8419354c36e8689676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 6.18
+  zoom: 5
   target: {fileID: 0}
   vcam: {fileID: 7281648974508339788}
-  offset: {x: 0, y: 1.75, z: 0}
+  offset: {x: 0, y: 7, z: 0}
 --- !u!1 &7281648976021592733
 GameObject:
   m_ObjectHideFlags: 0
