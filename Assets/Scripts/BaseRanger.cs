@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
-using Photon.Pun;
 
 public class BaseRanger : MonoBehaviourPunCallbacks
 {
     public Rigidbody playerRB;
     public Vector3 velocity;
+    public GameObject bulletPrefab;
 
     //public float jumpheight;
     public float  movespeed, gravity;
@@ -106,12 +106,16 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         if (inputAxis.magnitude > 0)
             SetModelFacing(new Vector3 (inputAxis.x, 0, inputAxis.y));
 
+
+        //shooting
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
+        }
+            //using  ability
         if (Input.GetKeyDown(KeyCode.J))
         {
-            //stop moving and startability
-            velocity.x = velocity.z = 0;
-            state = CharacterStates.usingAbility;
-            abilityComponent.OnAbilityStart();
+            BeginAbility();
         }
     }
 
@@ -169,6 +173,13 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         {
             hitList.Add(h5);
         }
+    }
+
+    void BeginAbility()
+    {
+        velocity.x = velocity.z = 0;
+        state = CharacterStates.usingAbility;
+        abilityComponent.OnAbilityStart();
     }
 
     private void OnDrawGizmos()

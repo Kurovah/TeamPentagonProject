@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TelepathAbility : MonoBehaviour, IRangerAbility
+public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
 {
     public List<GameObject> grabbables;
     public GameObject grabTarget;
@@ -24,6 +25,8 @@ public class TelepathAbility : MonoBehaviour, IRangerAbility
         }
     }
 
+
+    [PunRPC]
     public void OnAbilityStart()
     {
         Debug.Log("Starting ability");
@@ -50,10 +53,15 @@ public class TelepathAbility : MonoBehaviour, IRangerAbility
             grabTarget.GetComponent<IGrabbable>().OnGrabbed();
             abilityActive = true;
         }
+
+        if(photonView.IsMine)
+        {
+            photonView.RPC("OnAbilityStart", RpcTarget.OthersBuffered);
+        }
             
     }
 
-
+    [PunRPC]
     public void OnAbilityEnd()
     {
         if (abilityActive && grabTarget != null)
@@ -62,7 +70,12 @@ public class TelepathAbility : MonoBehaviour, IRangerAbility
             grabTarget = null;
             abilityActive = false;
         }
-        
+
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("OnAbilityEnd", RpcTarget.OthersBuffered);
+        }
     }
 
     
