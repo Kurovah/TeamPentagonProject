@@ -85,6 +85,11 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
         {
             grabTarget.GetComponent<IGrabbable>().OnInput(input);
         }
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("OnInput", RpcTarget.OthersBuffered, input);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
