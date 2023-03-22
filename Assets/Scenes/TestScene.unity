@@ -1262,6 +1262,7 @@ GameObject:
   - component: {fileID: 1835576241}
   - component: {fileID: 1835576243}
   - component: {fileID: 1835576242}
+  - component: {fileID: 1835576244}
   m_Layer: 0
   m_Name: AlienPlayer
   m_TagString: Untagged
@@ -1340,6 +1341,18 @@ MonoBehaviour:
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1835576244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835576239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625bd029292b8a644a7a876a8a13459a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1941879288
 GameObject:
   m_ObjectHideFlags: 0
