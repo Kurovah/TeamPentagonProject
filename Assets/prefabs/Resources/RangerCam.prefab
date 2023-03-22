@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 7281648974967660385}
   - component: {fileID: 7281648974967660384}
   m_Layer: 0
-  m_Name: PlayerCamArm
+  m_Name: RangerCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

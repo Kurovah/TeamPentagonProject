@@ -11,7 +11,8 @@ public class NetworkingTest : MonoBehaviourPunCallbacks
     string roomName = "Test Room";
     string playerName = "Test Player";
     bool joiningRoom = false;
-    public GameObject playerPrefab, playerCam;
+    public GameObject rangerPrefab, rangerCam, alienPrefab, alienCam;
+    public float team = 1;
 
     Vector2 roomListScroll= Vector2.zero;
     bool showWindow = true;
@@ -157,16 +158,46 @@ public class NetworkingTest : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         showWindow = false;
-        var p = PhotonNetwork.Instantiate(playerPrefab.name,
+
+        switch (team)
+        {
+            case 0:
+                SpawnRanger();
+                break;
+            case 1:
+                SpawnAlien();
+                break;
+        }
+        
+    }
+
+    void SpawnRanger()
+    {
+        var p = PhotonNetwork.Instantiate(rangerPrefab.name,
             Vector3.zero,
-            Quaternion.identity, 
+            Quaternion.identity,
             0);
 
 
-        var cam = Instantiate(playerCam,
+        var cam = Instantiate(rangerCam,
             Vector3.zero,
             Quaternion.identity);
 
         cam.GetComponent<CameraBehaviour>().target = p.transform;
+    }
+
+    void SpawnAlien()
+    {
+        var p = PhotonNetwork.Instantiate(alienPrefab.name,
+            Vector3.zero,
+            Quaternion.identity,
+            0);
+
+
+        var cam = Instantiate(alienCam,
+            Vector3.zero,
+            Quaternion.identity);
+
+        cam.GetComponent<AlienCamera>().target = p.transform;
     }
 }
