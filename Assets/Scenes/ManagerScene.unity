@@ -153,6 +153,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackOutImage: {fileID: 1773071779}
+  playerData:
+    playerName: Default Name
+    medals: 0
+    rangerCustom:
+      skinIndex: 0
+      bodyIndex: 0
+  colList: {fileID: 11400000, guid: 399a4ac16053cd54cbfc9fff6cc6419e, type: 2}
 --- !u!4 &190950787
 Transform:
   m_ObjectHideFlags: 0

@@ -795,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae0e45684e1cd24185b9697a73a3507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 
+  sceneToLoad: TestScene
 --- !u!1 &380832433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,6 +1713,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 917976795}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &917976798 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 635547659545568360, guid: 01d1516da48726346b11d1dc0246f36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 917976795}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &917976799 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1630794972795428178, guid: 01d1516da48726346b11d1dc0246f36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 917976795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &917976800
 Animator:
   serializedVersion: 4
@@ -1733,6 +1745,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &917976801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917976798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e4791454112bd449cd55b6cd85fe54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 917976799}
 --- !u!1 &922006683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,7 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae0e45684e1cd24185b9697a73a3507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: 
+  sceneToLoad: CustomisationRoom
 --- !u!1 &1360215807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3271,6 +3296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1798543140}
   - component: {fileID: 1798543141}
+  - component: {fileID: 1798543142}
   m_Layer: 5
   m_Name: MenuHolder
   m_TagString: Untagged
@@ -3330,6 +3356,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1798543142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798543139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba968ece6e6e4741a544452e8cbeee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1958488498
 GameObject:
   m_ObjectHideFlags: 0

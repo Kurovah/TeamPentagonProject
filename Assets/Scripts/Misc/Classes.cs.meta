@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: f79f0f54e524796419eaa3b32a2827aa
+guid: 02a9610ce41512746b4584a57f958f7a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - blackOutImage: {instanceID: 0}
-  - colList: {fileID: 11400000, guid: 399a4ac16053cd54cbfc9fff6cc6419e, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

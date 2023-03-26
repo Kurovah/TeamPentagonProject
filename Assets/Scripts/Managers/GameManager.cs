@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Image blackOutImage;
+    public PlayerData playerData;
+    public UnityAction onRangerColorChanged;
+    public ColourList colList;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        playerData = new PlayerData();
         SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+        Debug.Log("Colors:" + colList.colors.Count);
     }
 
     // Update is called once per frame
@@ -49,5 +55,31 @@ public class GameManager : MonoBehaviour
         }
         //fade back in
         blackOutImage.CrossFadeAlpha(0, 0.1f, true);
+    }
+
+    public Color GetColorFromList(int index)
+    {
+        return colList.colors[index].color;
+    }
+
+
+    public enum CustomSlots
+    {
+        skin,
+        body
+    }
+
+    public void SetColorIndex(int index, CustomSlots slot)
+    {
+        switch (slot)
+        {
+            case CustomSlots.body:
+                playerData.rangerCustom.bodyIndex = index;
+                break;
+            case CustomSlots.skin:
+                playerData.rangerCustom.skinIndex = index;
+                break;
+        }
+        onRangerColorChanged?.Invoke();
     }
 }
