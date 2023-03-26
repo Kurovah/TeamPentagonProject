@@ -9,6 +9,7 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     public Rigidbody playerRB;
     public Vector3 velocity;
     public GameObject bulletPrefab;
+    public Animator animator;
 
     //public float jumpheight;
     public float  movespeed, gravity;
@@ -75,6 +76,7 @@ public class BaseRanger : MonoBehaviourPunCallbacks
 
             velocity.y -= gravity;
             playerRB.velocity = velocity;
+            UpdateAnim();
         }
         
     }
@@ -90,6 +92,9 @@ public class BaseRanger : MonoBehaviourPunCallbacks
 
         lastYVel = velocity.y;
         velocity = rightVec * inputAxis.x + forwardVec * inputAxis.y;
+
+        moveFloat = Mathf.Abs(inputAxis.magnitude);
+
         velocity = velocity.normalized * movespeed;
         velocity.y = lastYVel;
 
@@ -118,20 +123,28 @@ public class BaseRanger : MonoBehaviourPunCallbacks
             BeginAbility();
         }
     }
-
     void StateUsingAbility()
     {
         if (Input.GetKeyUp(KeyCode.J))
         {
             state= CharacterStates.normal;
             abilityComponent.OnAbilityEnd();
+            abilityBool = false;
         }
     }
-
     void SetModelFacing(Vector3 _facing)
     {
         _facing.y = 0;
         meshTransform.forward = Vector3.Slerp(meshTransform.forward, _facing, 0.1f);
+    }
+
+
+    float moveFloat;
+    bool abilityBool;
+    private void UpdateAnim()
+    {
+        animator.SetFloat("Move", moveFloat);
+        animator.SetBool("UsingAbility", abilityBool);
     }
 
     [Header("for ground check")]
@@ -180,6 +193,7 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         velocity.x = velocity.z = 0;
         state = CharacterStates.usingAbility;
         abilityComponent.OnAbilityStart();
+        abilityBool = true;
     }
 
     private void OnDrawGizmos()

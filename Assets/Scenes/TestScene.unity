@@ -443,7 +443,7 @@ MonoBehaviour:
     type: 3}
   alienCam: {fileID: 8051442758668154322, guid: f1404511b4d39f448980ebc47156edc5,
     type: 3}
-  team: 1
+  team: 0
 --- !u!1 &655914238
 GameObject:
   m_ObjectHideFlags: 0
