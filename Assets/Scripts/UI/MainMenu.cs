@@ -31,6 +31,10 @@ public class MainMenu : MonoBehaviour
             var b = transform.GetChild(i).gameObject.GetComponent<Button>();
             var d = transform.GetChild(i).gameObject.GetComponent<ButtonDestinationComponent>();
             b.onClick.AddListener(() => GameManager.instance.LoadNewScenewithFade(d.sceneToLoad));
+
+            //for connecting to lobby when you do quick play
+            if (i == 0)
+                b.onClick.AddListener(() => NetworkingManager.instance.TryConnect());
         }
     }
 }

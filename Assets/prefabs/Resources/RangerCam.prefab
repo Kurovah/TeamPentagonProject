@@ -119,7 +119,7 @@ MonoBehaviour:
   zoom: 5
   target: {fileID: 0}
   vcam: {fileID: 7281648974508339788}
-  offset: {x: 0, y: 7, z: 0}
+  offset: {x: 0, y: 3.5, z: -3}
 --- !u!1 &7281648976021592733
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,13 @@ MonoBehaviour:
   - BeginAbility
   - OnAbilityEnd
   - OnAbilityStart
+  - DecrementPlayers
+  - IncrementPlayers
+  - ReadyUp
+  - UnReadyUp
+  - AddListing
+  - DPRPC
+  - IPRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
