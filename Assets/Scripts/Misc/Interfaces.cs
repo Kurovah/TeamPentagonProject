@@ -15,3 +15,16 @@ public interface IGrabbable
     public void OnInput(Vector2 input);
     public void OnReleased();
 }
+
+public enum TileTypes:int
+{
+    Solo,
+    OneEdge,
+    TwoEdge,
+    ThreeEdge,
+    FourEdge,
+    Corner,
+    CornerWall,
+    CornerFloor,
+    Wall
+}
