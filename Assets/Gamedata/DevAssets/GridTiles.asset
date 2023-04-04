@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c58099e9e952d44ade30f2772317fd, type: 3}
   m_Name: GridTiles
   m_EditorClassIdentifier: 
+  tileObjects:
+  - {fileID: 919132149155446097, guid: f24e4293c9981994388c0d5ec27db412, type: 3}
+  - {fileID: 919132149155446097, guid: db1b8295fe712de4ba612727a84919a3, type: 3}
+  - {fileID: 919132149155446097, guid: f834e9253e1822f4a8faba36604d5318, type: 3}
+  - {fileID: 919132149155446097, guid: c89cd4ea42b2f1244b1ebab8b2cc4e7d, type: 3}
+  - {fileID: 919132149155446097, guid: 6ea2c7cc0f7ca3f4d8c5fb64a6781a7c, type: 3}
+  - {fileID: 919132149155446097, guid: fbc5ac627689b274587b31763f57b5ce, type: 3}
