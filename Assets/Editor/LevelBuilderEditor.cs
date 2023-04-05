@@ -12,6 +12,7 @@ public class LevelBuilderEditor : Editor
     {
         t = (LevelBuilder)target;
         t.GetAllTilesOnLayer();
+        t.GetMeshFilter();
     }
 
     private void OnDisable()
@@ -51,20 +52,36 @@ public class LevelBuilderEditor : Editor
                         break;
                 }
             }
-            
+
+            Vector3 tp = t.cursorPos;
+
+            tp.x = LevelBuilder.RoundTo(tp.x, 2);
+            tp.z = LevelBuilder.RoundTo(tp.z, 2);
+
+            Vector2 ret = new Vector2(tp.x, tp.z);
+
+            t.DrawCursor(ret);
+
+
         }
-        
+
+
     }
 
     void PlaceBlock()
     {
         Vector3 tp = t.cursorPos;
 
-        tp.x = Mathf.Floor(tp.x);
-        if (tp.x % 2 != 0) tp.x--;
+        //tp.x = Mathf.Floor(tp.x);
+        //if (tp.x % 2 != 0) tp.x--;
 
-        tp.z = Mathf.Floor(tp.z);
-        if (tp.z % 2 != 0) tp.z--;
+        //tp.z = Mathf.Floor(tp.z);
+        //tp.z = Mathf.Floor(tp.z);
+        //if (tp.z % 2 != 0) tp.z--;
+
+        tp.x = LevelBuilder.RoundTo(tp.x, 2);
+        tp.z = LevelBuilder.RoundTo(tp.z, 2);
+
 
         Vector2 ret = new Vector2(tp.x, tp.z);
 
@@ -74,7 +91,9 @@ public class LevelBuilderEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        
+
+        GUILayout.Label($"current layer:{t.layer}");
+
         if (t.isActive)
         {
             if (GUILayout.Button("Close Editor"))
@@ -86,6 +105,7 @@ public class LevelBuilderEditor : Editor
             if (GUILayout.Button("Open Editor"))
             {
                 t.isActive = true;
+                t.GetAllTilesOnLayer();
             }
         }
 
@@ -93,5 +113,17 @@ public class LevelBuilderEditor : Editor
         {
             t.ClearLayer(t.layer);
         }
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button('\u2B06'.ToString()))
+        {
+            t.ChangeLayer(1);
+        }
+
+        if (GUILayout.Button('\u2B63'.ToString()))
+        {
+            t.ChangeLayer(-1);
+        }
+        GUILayout.EndHorizontal();
     }
 }
