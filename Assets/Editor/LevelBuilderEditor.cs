@@ -105,6 +105,7 @@ public class LevelBuilderEditor : Editor
                 t.RemoveTile(pos);
                 break;
         }
+        EditorUtility.SetDirty(t);
     }
 
     void PerformObjectAction(Vector2 pos)
@@ -119,6 +120,7 @@ public class LevelBuilderEditor : Editor
             case ObjectPenMode.Remove:
                 break;
         }
+        EditorUtility.SetDirty(t);
     }
 
     public override void OnInspectorGUI()
@@ -193,6 +195,9 @@ public class LevelBuilderEditor : Editor
             }
         }
 
-
+        if (GUILayout.Button("Save Configuration"))
+        {
+            EditorUtility.SetDirty(t);
+        }
     }
 }

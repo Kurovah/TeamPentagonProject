@@ -28,3 +28,10 @@ public enum TileTypes:int
     CornerFloor,
     Wall
 }
+
+public enum ResourceTypes
+{
+    Destron,
+    Anima,
+    Aquidia
+}

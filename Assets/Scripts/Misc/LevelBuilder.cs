@@ -66,24 +66,8 @@ public class LevelBuilder : MonoBehaviour
         }
 
         //create tile if one isn't in this pos
-        var tt = GetTileTransforms();
-        bool canPlace = true;
-        GameObject tileObj;
-        foreach (Transform t in tt)
-        {
-
-            //if there's a tile in this position then place the tile
-            Vector2 checkedTilePos = new Vector2(t.position.x, t.position.z);
-            if (checkedTilePos == tilePos)
-            {
-                canPlace = false;
-                tileObj = t.gameObject;
-                break;
-            }
-        }
-
         GameObject obj;
-        if (!canPlace)
+        if (IsAreaObstructed(tilePos))
         {
             obj = tileObject;
         } else
@@ -280,7 +264,12 @@ public class LevelBuilder : MonoBehaviour
     }
     public void PlaceObject(int itemIndex,Vector2 tilePosition)
     {
-
+        if (!IsAreaObstructedByObject(tilePosition))
+        {
+            var obj = Instantiate(stageItems.stageObject[itemIndex], GetLayer(layer).transform.GetChild(1));
+            obj.transform.localPosition = new Vector3(tilePosition.x/100, 0, tilePosition.y/100);
+            obj.transform.localScale = Vector3.one/100;
+        }
     }
     #endregion
 
@@ -333,11 +322,36 @@ public class LevelBuilder : MonoBehaviour
     }
     bool IsAreaObstructed(Vector2 pos)
     {
-        bool r = false;
+        //checking tiles
+        foreach(Transform t in GetLayer(layer).transform.GetChild(0))
+        {
+            Vector2 p = new Vector2(t.position.x, t.position.z);
+            Debug.Log("Can't place here");
+            if (p == pos) return true;
+        }
 
-        return r;
+        //checking objects
+        foreach (Transform t in GetLayer(layer).transform.GetChild(1))
+        {
+            Vector2 p = new Vector2(t.position.x, t.position.z);
+            Debug.Log("Can't place here");
+            if (p == pos) return true;
+        }
+
+        return false;
     }
-    
+    bool IsAreaObstructedByObject(Vector2 pos)
+    {
+        //checking objects
+        foreach (Transform t in GetLayer(layer).transform.GetChild(1))
+        {
+            Vector2 p = new Vector2(t.position.x, t.position.z);
+            Debug.Log("Can't place here");
+            if (p == pos) return true;
+        }
+
+        return false;
+    }
 
     public static float RoundTo(float value, float multipleOf)
     {
