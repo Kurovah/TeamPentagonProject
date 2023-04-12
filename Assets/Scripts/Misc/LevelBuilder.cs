@@ -12,10 +12,12 @@ public class LevelBuilder : MonoBehaviour
     public bool isActive;
     [HideInInspector]
     public int layer;
-    public TileSet ties;
+
+    [Header("Scriptable objects")]
+    public TileSet tiles;
+    public StageItems stageItems;
     public GameObject tileObject;
     public Vector3  cursorPos;
-    Dictionary<Vector2, GameObject> tilePlacements = new Dictionary<Vector2, GameObject>();
 
     MeshFilter meshFilter;
     // Start is called before the first frame update
@@ -35,46 +37,98 @@ public class LevelBuilder : MonoBehaviour
 
     }
 
+    #region tile functions
     public void AddTile(Vector2 tilePos)
     {
         //check if the layer exists
         if (!LayerExists(layer))
         {
+            //layer transform
             GameObject g = new GameObject();
             g.name = $"Layer_{layer}";
             g.transform.localScale = Vector3.one * 100;
             g.transform.parent = transform;
+            g.transform.position = new Vector3(0, layer * 2, 0);
+
+            //tiles parent
+            GameObject tileParent = new GameObject();
+            tileParent.name = "Tile";
+            tileParent.transform.parent = g.transform;
+            tileParent.transform.localScale = Vector3.one;
+            tileParent.transform.localPosition = Vector3.zero;
+
+            //stage item parent
+            GameObject itemParent = new GameObject();
+            itemParent.name = "Stage_Items";
+            itemParent.transform.parent = g.transform;
+            itemParent.transform.localScale = Vector3.one;
+            itemParent.transform.localPosition = Vector3.zero;
         }
 
-        //create tile
-        if (!tilePlacements.ContainsKey(tilePos))
+        //create tile if one isn't in this pos
+        var tt = GetTileTransforms();
+        bool canPlace = true;
+        GameObject tileObj;
+        foreach (Transform t in tt)
         {
-            var obj = Instantiate(tileObject, GetLayer(layer).transform);
-            int layerPos = (int)RoundTo(layer, 2);
-            
 
-            obj.transform.position = new Vector3(tilePos.x,layerPos, tilePos.y);
-            obj.name = $"tile x:{tilePos.x}, y:{tilePos.y}";
-            tilePlacements.Add(tilePos, obj);
-
-            //set tile mesh and materials
-            int sideIndex = GetSideIndex(tilePos);
-            int objIndex;
-            float r = 0;
-            //set object index
-
-            GetOIndexandRotation(sideIndex, out objIndex, out r);
-
-            obj.GetComponent<MeshRenderer>().sharedMaterials = ties.tileObjects[objIndex].GetComponent<MeshRenderer>().sharedMaterials;
-            obj.GetComponent<MeshFilter>().sharedMesh = ties.tileObjects[objIndex].GetComponent<MeshFilter>().sharedMesh;
-            obj.transform.localRotation = Quaternion.identity;
-            obj.transform.Rotate(Vector3.up, r);
+            //if there's a tile in this position then place the tile
+            Vector2 checkedTilePos = new Vector2(t.position.x, t.position.z);
+            if (checkedTilePos == tilePos)
+            {
+                canPlace = false;
+                tileObj = t.gameObject;
+                break;
+            }
         }
+
+        GameObject obj;
+        if (!canPlace)
+        {
+            obj = tileObject;
+        } else
+        {
+            obj = Instantiate(tileObject, GetLayer(layer).transform.GetChild(0));
+            obj.transform.localPosition = new Vector3(tilePos.x / 100, 0, tilePos.y / 100);
+            obj.name = $"tile x:{tilePos.x}, y:{tilePos.y}";
+        }
+        
+
+        //set tile mesh and materials
+        int sideIndex = GetSideIndex(tilePos);
+        int objIndex;
+        float r;
+
+        //set object index and rotation
+        GetOIndexandRotation(sideIndex, out objIndex, out r);
+        obj.GetComponent<MeshRenderer>().sharedMaterials = tiles.tileObjects[objIndex].GetComponent<MeshRenderer>().sharedMaterials;
+        obj.GetComponent<MeshFilter>().sharedMesh = tiles.tileObjects[objIndex].GetComponent<MeshFilter>().sharedMesh;
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.Rotate(Vector3.up, r);
 
         UpdateAllTiles();
          
     }
+    public void RemoveTile(Vector2 tilePos)
+    {
+        var tt = GetTileTransforms();
+        foreach (Transform t in tt)
+        {
 
+            //if the tile is found remove it
+            Vector2 checkedTilePos = new Vector2(t.position.x, t.position.z);
+            if (checkedTilePos == tilePos)
+            {
+                DestroyImmediate(t.gameObject);
+                UpdateAllTiles();
+                break;
+            }
+        }
+    }
+    public void RefreshLayer()
+    {
+        UpdateAllTiles();
+    }
     void GetOIndexandRotation(int sideIndex ,out int objIndex, out float r)
     {
         switch (sideIndex)
@@ -111,45 +165,86 @@ public class LevelBuilder : MonoBehaviour
                 break;
         }
     }
-
     void UpdateAllTiles()
     {
-        foreach(KeyValuePair<Vector2, GameObject> t in tilePlacements)
+        //make sure it updates properly
+        var tt = GetTileTransforms();
+
+        foreach(Transform t in tt)
         {
-            int sideIndex = GetSideIndex(t.Key);
+            var g = t.gameObject;
+            Vector2 tpos = new Vector2(g.transform.position.x, g.transform.position.z);
+
+            int sideIndex = GetSideIndex(tpos);
             int oIndex;
             float rot;
             GetOIndexandRotation(sideIndex, out oIndex, out rot);
 
-            t.Value.GetComponent<MeshRenderer>().sharedMaterials = ties.tileObjects[oIndex].GetComponent<MeshRenderer>().sharedMaterials;
-            t.Value.GetComponent<MeshFilter>().sharedMesh = ties.tileObjects[oIndex].GetComponent<MeshFilter>().sharedMesh;
-            t.Value.transform.localRotation = Quaternion.identity;
-            t.Value.transform.Rotate(Vector3.up, rot);
+            t.gameObject.GetComponent<MeshRenderer>().sharedMaterials = tiles.tileObjects[oIndex].GetComponent<MeshRenderer>().sharedMaterials;
+            t.gameObject.GetComponent<MeshFilter>().sharedMesh = tiles.tileObjects[oIndex].GetComponent<MeshFilter>().sharedMesh;
+            t.gameObject.transform.localRotation = Quaternion.identity;
+            t.gameObject.transform.Rotate(Vector3.up, rot);
         }
 
         
     }
-
     int GetSideIndex(Vector2 tilePos)
     {
         int ret = 0;
-        if (tilePlacements.ContainsKey(tilePos + Vector2.up * 2)) ret += 1;
-        if (tilePlacements.ContainsKey(tilePos + Vector2.left * 2)) ret += 2;
-        if (tilePlacements.ContainsKey(tilePos + Vector2.down * 2)) ret += 4;
-        if (tilePlacements.ContainsKey(tilePos + Vector2.right * 2)) ret += 8;
+        var list = GetTileTransforms();
+
+
+        //for each trasform check if it is near this tile and change side index accordingly
+        foreach (Transform t in list)
+        {
+            //tile posisiton
+            Vector2 p = new Vector2(t.position.x, t.position.z);
+            if (tilePos + Vector2.up * 2 == p) ret += 1;
+            if (tilePos + Vector2.left * 2 == p) ret += 2;
+            if (tilePos - Vector2.up * 2 == p) ret += 4;
+            if (tilePos - Vector2.left * 2 == p) ret += 8;
+
+        }
+
+        
         return ret;
     }
+    public List<Transform> GetTileTransforms()
+    {
 
+        List<Transform> ret = new List<Transform>();
+        if (LayerExists(layer))
+        {
+            foreach (Transform t in GetLayer(layer).transform.GetChild(0))
+            {
+                ret.Add(t);
+            }
+        }
+        return ret;
+    }
+    public int GetTileNumber()
+    {
+        if (LayerExists(layer))
+        {
+            var l = GetLayer(layer).transform.GetChild(0);
+
+            return l.childCount;
+        }
+
+        return 0;
+    }
+    #endregion
+    #region layer functions
     bool LayerExists(int layer)
     {
-        foreach(Transform t in transform)
+        for(int i = 0; i < transform.childCount; i++)
         {
+            var t = transform.GetChild(i);
             if (t.gameObject.name == $"Layer_{layer}")
                 return true;
         }
         return false;
     }
-
     GameObject GetLayer(int layer)
     {
         foreach (Transform t in transform)
@@ -160,42 +255,38 @@ public class LevelBuilder : MonoBehaviour
 
         return null;
     }
-
     public void ClearLayer(int layer)
     {
         if (LayerExists(layer))
         {
             for (int i = GetLayer(layer).transform.childCount; i > 0; --i)
             {
-                DestroyImmediate(GetLayer(layer).transform.GetChild(0).gameObject);
+                var p = GetLayer(layer).transform.GetChild(0).position;
+                RemoveTile(new Vector2(p.x, p.z));
             }
                 
         }
     }
-
-    public void GetAllTilesOnLayer()
+    #endregion
+    #region objectFunctions
+    public List<string> GetStageObjectNames()
     {
-        tilePlacements.Clear();
-        if (LayerExists(layer))
+        List<string> n = new List<string>();
+        foreach(var i in stageItems.stageObject)
         {
-            var l = GetLayer(layer).transform;
-
-            for (int i = 0; i < l.childCount; i++)
-            {
-                var t = l.GetChild(i);
-
-                Vector2 v = new Vector2(t.position.x, t.position.z) * 100;
-                GameObject g = t.gameObject;
-                tilePlacements.Add(v, g);
-            }
+            n.Add(i.name);
         }
+        return n;
     }
+    public void PlaceObject(int itemIndex,Vector2 tilePosition)
+    {
+
+    }
+    #endregion
 
     public void ChangeLayer(int increment)
     {
         layer += increment;
-        if(LayerExists(layer))
-            GetAllTilesOnLayer();
     }
 
     public void DrawCursor(Vector2 pos)
@@ -240,6 +331,13 @@ public class LevelBuilder : MonoBehaviour
             
         }
     }
+    bool IsAreaObstructed(Vector2 pos)
+    {
+        bool r = false;
+
+        return r;
+    }
+    
 
     public static float RoundTo(float value, float multipleOf)
     {
