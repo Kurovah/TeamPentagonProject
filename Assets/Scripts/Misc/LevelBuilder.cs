@@ -17,8 +17,11 @@ public class LevelBuilder : MonoBehaviour
     public TileSet tiles;
     public StageItems stageItems;
     public GameObject tileObject;
-    public Vector3  cursorPos;
 
+    [Header("Level Stuff")]
+    [HideInInspector]
+    public Vector3  cursorPos;
+    public Vector3  EndPointOffset;
     MeshFilter meshFilter;
     // Start is called before the first frame update
     void Start()
@@ -299,10 +302,10 @@ public class LevelBuilder : MonoBehaviour
             float size = 1.0f;
             List<Vector3> v = new List<Vector3>
             {
-                new Vector3(pos.x - size, layer, pos.y - size),
-                new Vector3(pos.x + size, layer, pos.y - size),
-                new Vector3(pos.x + size, layer, pos.y + size),
-                new Vector3(pos.x - size, layer, pos.y + size),
+                new Vector3(pos.x - size, layer, pos.y - size) + Vector3.up * 0.01f,
+                new Vector3(pos.x + size, layer, pos.y - size) + Vector3.up * 0.01f,
+                new Vector3(pos.x + size, layer, pos.y + size) + Vector3.up * 0.01f,
+                new Vector3(pos.x - size, layer, pos.y + size) + Vector3.up * 0.01f,
                 
             };
 
@@ -314,19 +317,25 @@ public class LevelBuilder : MonoBehaviour
 
             m.SetVertices(v);
             m.SetTriangles(tris, 0);
+            m.RecalculateBounds();
 
             meshFilter.sharedMesh = m;
 
             
         }
     }
+
+    public Vector3 GetLevelEnd()
+    {
+        return transform.position + EndPointOffset;
+    }
+
     bool IsAreaObstructed(Vector2 pos)
     {
         //checking tiles
         foreach(Transform t in GetLayer(layer).transform.GetChild(0))
         {
             Vector2 p = new Vector2(t.position.x, t.position.z);
-            Debug.Log("Can't place here");
             if (p == pos) return true;
         }
 
@@ -334,7 +343,6 @@ public class LevelBuilder : MonoBehaviour
         foreach (Transform t in GetLayer(layer).transform.GetChild(1))
         {
             Vector2 p = new Vector2(t.position.x, t.position.z);
-            Debug.Log("Can't place here");
             if (p == pos) return true;
         }
 
@@ -356,5 +364,11 @@ public class LevelBuilder : MonoBehaviour
     public static float RoundTo(float value, float multipleOf)
     {
         return Mathf.Round(value / multipleOf) * multipleOf;
+    }
+
+    private void OnDrawGizmos()
+    {
+        
+        Gizmos.DrawWireSphere(transform.position + EndPointOffset, 1);
     }
 }

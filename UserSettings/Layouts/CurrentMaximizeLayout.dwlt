@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 91
+  controlID: 73
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 66
+  controlID: 74
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 67
+  controlID: 47
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,7 +228,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d29effffd4bfffffcef1ffff10fbffff12fbffff286e0000c06e0000
+      m_ExpandedIDs: 12fbffff6c6d0000ca740000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -244,7 +244,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 5}
+        m_ClientGUIView: {fileID: 7}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
   - {fileID: 2}
   - {fileID: 9}
   m_Selected: 1
-  m_LastSelected: 2
+  m_LastSelected: 0
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -390,7 +390,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 15.913886, y: 5.288903, z: -39.725876}
+    m_Target: {x: 13.8144865, y: 43.632374, z: -37.562325}
     speed: 2
-    m_Value: {x: 15.913886, y: 5.288903, z: -39.725876}
+    m_Value: {x: 13.8144865, y: 43.632374, z: -37.562325}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -555,13 +555,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.20185797, y: -0.60687685, z: 0.16306747, w: 0.75123954}
+    m_Target: {x: 0.5791965, y: -0.04640247, z: 0.033050284, w: 0.8131963}
     speed: 2
-    m_Value: {x: 0.20185818, y: -0.60687745, z: 0.16306764, w: 0.7512403}
+    m_Value: {x: 0.5791959, y: -0.04640242, z: 0.033050247, w: 0.8131954}
   m_Size:
-    m_Target: 0.6851518
+    m_Target: 21.88551
     speed: 2
-    m_Value: 0.6851518
+    m_Value: 21.88551
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -705,22 +705,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/prefabs/Resources
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/prefabs/Resources
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\danny\Documents\GitHub\TeamPentagonProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 199}
-    m_SelectedIDs: fe900000
-    m_LastClickedID: 37118
-    m_ExpandedIDs: 000000002c7d00002e7d0000307d0000327d0000d2900000d6900000320e010000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 1e800000
+    m_LastClickedID: 32798
+    m_ExpandedIDs: 000000001e800000208000002280000024800000408000004e800000528000004802010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -748,7 +748,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002c7d00002e7d0000307d0000327d0000
+    m_ExpandedIDs: 000000001e800000208000002280000024800000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -773,8 +773,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: cef1ffff
-    m_LastClickedInstanceID: -3634
+    m_SelectedInstanceIDs: d4770000
+    m_LastClickedInstanceID: 30676
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000346e0000ee6b0000826e0000427200003c72000034720000
     m_RenameOverlay:
@@ -894,7 +894,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -3634
+  m_LastInspectedObjectInstanceID: 30676
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

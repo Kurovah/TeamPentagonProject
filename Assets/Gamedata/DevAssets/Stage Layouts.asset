@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5756994e51f7e4a4dab4d0a6d1f689d7, type: 3}
+  m_Name: Stage Layouts
+  m_EditorClassIdentifier: 
+  startPiece: {fileID: 3621932258145491029, guid: 00435e684fefa624d98cc2bed9710465,
+    type: 3}
+  endPiece: {fileID: 8921684486549781733, guid: 8cdff5a2e22ff69408a4ce0646d16abb,
+    type: 3}
+  stageLayouts:
+  - {fileID: 387301943583827686, guid: 5a6c8ee8bbd34fc42b80c750f5bda22b, type: 3}
