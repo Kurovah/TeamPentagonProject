@@ -9,6 +9,7 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     public Rigidbody playerRB;
     public Vector3 velocity;
     public GameObject bulletPrefab;
+    public GameObject baton;
     public Animator animator;
 
     //public float jumpheight;
@@ -21,17 +22,12 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     public enum CharacterStates
     {
         normal,
-        usingAbility
-    }
-
-    public enum CharacterAbility
-    {
-        telepath,
-        warp
+        usingAbility,
+        attacking,
+        hurt
     }
 
     public CharacterStates state = CharacterStates.normal;
-    public CharacterAbility ability = CharacterAbility.telepath;
 
     IRangerAbility abilityComponent;
 
@@ -40,6 +36,7 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     {
         playerRB= GetComponent<Rigidbody>();
         abilityComponent = GetComponentInChildren<IRangerAbility>();
+        HideModel();
     }
 
     // Update is called once per frame
@@ -69,6 +66,9 @@ public class BaseRanger : MonoBehaviourPunCallbacks
                     break;
                 case CharacterStates.usingAbility:
                     StateUsingAbility();
+                    break;
+                case CharacterStates.attacking:
+                    StateAttacking();
                     break;
             }
 
@@ -112,10 +112,11 @@ public class BaseRanger : MonoBehaviourPunCallbacks
             SetModelFacing(new Vector3 (inputAxis.x, 0, inputAxis.y));
 
 
-        //shooting
+        //attacking
         if (Input.GetKeyDown(KeyCode.K))
         {
-            PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
+            //PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
+            BeginAttack();
         }
             //using  ability
         if (Input.GetKeyDown(KeyCode.J))
@@ -131,6 +132,23 @@ public class BaseRanger : MonoBehaviourPunCallbacks
             abilityComponent.OnAbilityEnd();
             abilityBool = false;
         }
+    }
+    void StateAttacking()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
+        {
+            CheckHit();
+        }
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+        {
+            HideModel();
+            state = CharacterStates.normal;
+        }
+    }
+    void StateHurt()
+    {
+
     }
     void SetModelFacing(Vector3 _facing)
     {
@@ -188,6 +206,17 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         }
     }
 
+    void BeginAttack()
+    {
+        animator.SetTrigger("Attack");
+        ShowModel();
+        state = CharacterStates.attacking;
+    }
+
+    void CheckHit()
+    {
+
+    }
     void BeginAbility()
     {
         velocity.x = velocity.z = 0;
@@ -195,7 +224,14 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         abilityComponent.OnAbilityStart();
         abilityBool = true;
     }
-
+    public void HideModel()
+    {
+        baton.SetActive(false);
+    }
+    public void ShowModel()
+    {
+        baton.SetActive(true);
+    }
     private void OnDrawGizmos()
     {
         //central

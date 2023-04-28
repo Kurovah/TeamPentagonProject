@@ -12,13 +12,16 @@ public class GameManager : MonoBehaviour
     public PlayerData playerData;
     public UnityAction onRangerColorChanged;
     public ColourList colList;
+
+    public bool TestMode;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         playerData = new PlayerData();
-        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
-        Debug.Log("Colors:" + colList.colors.Count);
+
+        if(!TestMode)
+            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
