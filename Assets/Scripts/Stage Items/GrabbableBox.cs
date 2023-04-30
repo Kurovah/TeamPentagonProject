@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TestGrabbable : MonoBehaviourPunCallbacks, IGrabbable 
+public class GrabbableBox : MonoBehaviourPunCallbacks, IGrabbable 
 {
     public bool isGrabbed;
     Rigidbody rb;
