@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BaseRanger : MonoBehaviourPunCallbacks
 {
@@ -11,6 +12,12 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     public GameObject bulletPrefab;
     public GameObject baton;
     public Animator animator;
+
+    public GameObject cameraObject;
+    public GameObject HUDObject;
+
+    [Header("Input")]
+    public InputActionAsset actions;
 
     //public float jumpheight;
     public float  movespeed, gravity;
@@ -36,7 +43,14 @@ public class BaseRanger : MonoBehaviourPunCallbacks
     {
         playerRB= GetComponent<Rigidbody>();
         abilityComponent = GetComponentInChildren<IRangerAbility>();
+        if (!photonView.IsMine)
+        {
+            cameraObject.SetActive(false);
+            HUDObject.SetActive(false);
+        }
+
         HideModel();
+        
     }
 
     // Update is called once per frame
@@ -88,7 +102,8 @@ public class BaseRanger : MonoBehaviourPunCallbacks
 
 
         
-        Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        //Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 inputAxis = actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>();
 
         lastYVel = velocity.y;
         velocity = rightVec * inputAxis.x + forwardVec * inputAxis.y;
@@ -113,20 +128,20 @@ public class BaseRanger : MonoBehaviourPunCallbacks
 
 
         //attacking
-        if (Input.GetKeyDown(KeyCode.K))
+        if (actions.actionMaps[0].FindAction("Attack").triggered)
         {
             //PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
             BeginAttack();
         }
             //using  ability
-        if (Input.GetKeyDown(KeyCode.J))
+        if (actions.actionMaps[0].FindAction("Ability").triggered)
         {
             BeginAbility();
         }
     }
     void StateUsingAbility()
     {
-        if (Input.GetKeyUp(KeyCode.J))
+        if (actions.actionMaps[0].FindAction("Ability").ReadValue<int>() == 0)
         {
             state= CharacterStates.normal;
             abilityComponent.OnAbilityEnd();

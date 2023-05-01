@@ -229,7 +229,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: aad3a4547815a0849bc28227952d769f,
         type: 3}
       propertyPath: m_Name
-      value: Platform_with_arrows
+      value: Platform_with_arrows(X)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aad3a4547815a0849bc28227952d769f, type: 3}

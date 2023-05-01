@@ -2,7 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using Cinemachine;
 
 public class AlienBehaviour : MonoBehaviourPunCallbacks
 {
@@ -11,6 +11,9 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     Rigidbody rb;
     public Transform meshTransform;
     public GameObject critterObject;
+
+    public GameObject alienCam;
+    public GameObject HUD;
     public enum CharacterStates
     {
         Normal,
@@ -30,6 +33,11 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (!photonView.IsMine)
+        {
+            alienCam.gameObject.SetActive(false);
+            HUD.SetActive(false);
+        }
     }
 
     // Update is called once per frame

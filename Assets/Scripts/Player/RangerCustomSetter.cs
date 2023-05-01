@@ -9,7 +9,9 @@ public class RangerCustomSetter : MonoBehaviour
     void Start()
     {
         UpdateCustom();
-        GameManager.instance.onRangerColorChanged += UpdateCustom;
+
+        if(GameManager.instance != null)
+            GameManager.instance.onRangerColorChanged += UpdateCustom;
     }
 
     // Update is called once per frame
@@ -20,11 +22,13 @@ public class RangerCustomSetter : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.instance.onRangerColorChanged -= UpdateCustom;
+        if (GameManager.instance != null)
+            GameManager.instance.onRangerColorChanged -= UpdateCustom;
     }
     private void OnDisable()
     {
-        GameManager.instance.onRangerColorChanged -= UpdateCustom;
+        if (GameManager.instance != null)
+            GameManager.instance.onRangerColorChanged -= UpdateCustom;
     }
 
     void UpdateCustom()

@@ -9,8 +9,8 @@ public class GrabbableBox : MonoBehaviourPunCallbacks, IGrabbable
     public bool isGrabbed;
     Rigidbody rb;
     Vector3 velocity;
-    public float dragSpeed; 
-
+    public float dragSpeed;
+    public MeshRenderer bodyRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +30,7 @@ public class GrabbableBox : MonoBehaviourPunCallbacks, IGrabbable
         isGrabbed = true;
         SetPosition(transform.position + Vector3.up);
         SetUsingGrav(false);
+        bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
 
     public void OnInput(Vector2 input)
@@ -42,6 +43,7 @@ public class GrabbableBox : MonoBehaviourPunCallbacks, IGrabbable
         isGrabbed= false;
         SetVelocity(Vector3.zero);
         SetUsingGrav(true);
+        bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
 
     [PunRPC]

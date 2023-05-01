@@ -24,15 +24,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
         int t = NetworkingManager.instance.team;
         if (t == 1)
         { //alien
-            var p = PhotonNetwork.Instantiate(alienObject.name, r1spawn.position, r1spawn.rotation);
-            var c = Instantiate(alienCam, r1spawn.position, r1spawn.rotation);
-            c.GetComponent<AlienCamera>().target = p.transform;
+            PhotonNetwork.Instantiate(alienObject.name, r1spawn.position, r1spawn.rotation);
         }
         else
         {
-            var p2 = PhotonNetwork.Instantiate(rangerObject.name, a1spawn.position, a1spawn.rotation);
-            var c2 = Instantiate(rangerCam, a1spawn.position, a1spawn.rotation);
-            c2.GetComponent<CameraBehaviour>().target = p2.transform;
+            PhotonNetwork.Instantiate(rangerObject.name, a1spawn.position, a1spawn.rotation);
         }
 
     }

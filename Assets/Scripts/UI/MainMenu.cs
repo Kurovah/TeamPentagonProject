@@ -24,6 +24,11 @@ public class MainMenu : MonoBehaviour
         buttonTransform.localScale = newScale;
     }
 
+    public void GotoTestRoom()
+    {
+        GameManager.instance.LoadNewScenewithFade("TestMap");
+    }
+
     public void AddButtonDestinations()
     {
         for (int i = 0; i < 4; i++)

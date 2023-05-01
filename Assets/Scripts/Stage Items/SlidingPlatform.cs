@@ -10,6 +10,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     Vector3 velocity;
     public float dragSpeed = 5;
     public Transform meshTransform;
+    public MeshRenderer bodyRenderer;
     public enum AxisType
     {
         XAxis,
@@ -34,6 +35,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     public void OnGrabbed()
     {
         isGrabbed = true;
+        bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
 
     public void OnInput(Vector2 input)
@@ -54,6 +56,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     public void OnReleased()
     {
         isGrabbed = false;
+        bodyRenderer.sharedMaterial.SetInt("_FresOn", 0);
         SetVelocity(Vector3.zero);
     }
 

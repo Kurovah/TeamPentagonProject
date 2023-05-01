@@ -119,7 +119,8 @@ public class LobbyUICallBacks : MonoBehaviourPun
     void CheckAllReady()
     {
         //just to make sure one player doesn't go in by themselves
-        if (ReadiedPlayers == playersInRoom && playersInRoom > 1)
+        //if (ReadiedPlayers == playersInRoom && playersInRoom > 1)
+        if (ReadiedPlayers == playersInRoom)
             NetworkingManager.instance.GoToPlayArea();
     }
     #endregion
@@ -163,6 +164,16 @@ public class LobbyUICallBacks : MonoBehaviourPun
     {
         var a = PhotonNetwork.Instantiate(playerListingObject.name, Vector3.zero, Quaternion.identity);
         a.transform.parent = listingArea;
+    }
+
+    public void LeaveRoom()
+    {
+        NetworkingManager.instance.LeaveRoom();
+    }
+
+    public void BackToMain()
+    {
+        GameManager.instance.LoadNewScenewithFade("MainMenu");
     }
 
 }

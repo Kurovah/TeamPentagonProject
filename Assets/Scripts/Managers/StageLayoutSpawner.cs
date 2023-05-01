@@ -5,6 +5,7 @@ using UnityEngine;
 public class StageLayoutSpawner : MonoBehaviour
 {
     public StagePieceList stageLayouts;
+    public GameObject startPiece;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +22,7 @@ public class StageLayoutSpawner : MonoBehaviour
         LevelBuilder lastLevelPiece, currentLevelPiece;
         GameObject levelObject;
         //start
-        var startPiece = Instantiate(stageLayouts.startPiece, transform.position, Quaternion.identity);
-        lastLevelPiece = startPiece.gameObject.GetComponent<LevelBuilder>();
+        lastLevelPiece = transform.GetChild(0).gameObject.GetComponent<LevelBuilder>();
 
         
 

@@ -100,6 +100,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
     public void SetTeam(int i)
     {
         team = i;
