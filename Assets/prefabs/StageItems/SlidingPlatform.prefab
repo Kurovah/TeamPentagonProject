@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2771109086433302435}
   - component: {fileID: 2988039646986949074}
   m_Layer: 0
-  m_Name: Grabbable(AxisLocked)
+  m_Name: SlidingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2771109086433302442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.618, y: 2.388, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1087169060726829265}
@@ -49,7 +49,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 1, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &764982370303108234
 MonoBehaviour:
@@ -66,6 +66,7 @@ MonoBehaviour:
   isGrabbed: 0
   dragSpeed: 5
   meshTransform: {fileID: 1087169060726829265}
+  bodyRenderer: {fileID: 3112016591112396828}
   movementAxis: 0
 --- !u!54 &2771109086433302445
 Rigidbody:
@@ -78,10 +79,10 @@ Rigidbody:
   m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &2771109086433302434
 MonoBehaviour:
@@ -236,6 +237,12 @@ PrefabInstance:
 --- !u!4 &1087169060726829265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aad3a4547815a0849bc28227952d769f,
+    type: 3}
+  m_PrefabInstance: {fileID: 620617127830198074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3112016591112396828 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6652725513331149018, guid: aad3a4547815a0849bc28227952d769f,
     type: 3}
   m_PrefabInstance: {fileID: 620617127830198074}
   m_PrefabAsset: {fileID: 0}

@@ -21,7 +21,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        SetAxisLock(AxisType.XAxis);
+        SetAxisLock(movementAxis);
     }
 
     // Update is called once per frame

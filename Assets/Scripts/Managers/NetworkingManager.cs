@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System;
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
@@ -12,11 +14,10 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     public int team;
     bool joiningRoom, isReady;
 
-    public UnityAction joinedRoomAction, leftRoomAction, onTeamSet;
-    public UnityAction<bool> onReadySet;
+    public UnityAction joinedRoomAction, leftRoomAction;
     public UnityAction<List<RoomInfo>> onRoomListUpdated;
-
-    [HideInInspector]
+    Hashtable playerProperties;
+   [HideInInspector]
     public List<RoomInfo> rooms = new List<RoomInfo>();
 
     // Start is called before the first frame update
@@ -78,6 +79,12 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        //setting custom properties
+        playerProperties = new Hashtable();
+        playerProperties.Add("playerTeam", 0);
+        playerProperties.Add("isReady", false);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+
         joinedRoomAction?.Invoke();
     }
     public override void OnLeftRoom()
@@ -92,7 +99,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
     public void GoToPlayArea()
     {
-        GameManager.instance.LoadNewScenewithFade("TestScene");
+        GameManager.instance.LoadNewScenewithFade("PlayScene");
     }
 
     public void CheckAllPlayersReady()
@@ -105,15 +112,19 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public int GetTeam()
+    {
+        return (int)playerProperties["playerTeam"];
+    }
     public void SetTeam(int i)
     {
-        team = i;
-        onTeamSet?.Invoke();
+        playerProperties["playerTeam"] = i;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
     public void SetReady(bool ready)
     {
-        isReady = ready;
-        onReadySet?.Invoke(ready);
+        playerProperties["isReady"] = ready;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 }

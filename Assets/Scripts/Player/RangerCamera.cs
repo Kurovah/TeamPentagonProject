@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 [ExecuteInEditMode]
-public class CameraBehaviour : MonoBehaviour
+public class RangerCamera : MonoBehaviour
 {
     public float zoom;
     public Transform target;

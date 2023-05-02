@@ -53,6 +53,10 @@ MonoBehaviour:
   - AddListing
   - DPRPC
   - IPRPC
+  - BeginAttack
+  - EndAbility
+  - PlayerListUpdate
+  - PlayerListUpdateRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

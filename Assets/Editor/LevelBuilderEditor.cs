@@ -10,25 +10,12 @@ public class LevelBuilderEditor : Editor
     LevelBuilder t;
 
     //enum
-    public enum BasePenMode:int
-    {
-        Tile,
-        Object,
-    }
     public enum TilePenMode : int
     {
         Draw,
         Erase
     }
-    public enum ObjectPenMode: int
-    {
-        Place,
-        Rotate,
-        Remove
-    }
-    public BasePenMode currentBasePenMode;
     public TilePenMode currentTilePenMode;
-    public ObjectPenMode currentObjPenMode;
 
     int stageItemIndex = 0;
 
@@ -77,15 +64,7 @@ public class LevelBuilderEditor : Editor
                 {
                     case EventType.MouseDown:
                     case EventType.MouseDrag:
-                        switch (currentBasePenMode)
-                        {
-                            case BasePenMode.Tile:
-                                PerformTileAction(p);
-                                break;
-                            case BasePenMode.Object:
-                                PerformObjectAction(p);
-                                break;
-                        }
+                            PerformTileAction(p);
                         break;
                 }
             }
@@ -108,21 +87,6 @@ public class LevelBuilderEditor : Editor
         EditorUtility.SetDirty(t);
     }
 
-    void PerformObjectAction(Vector2 pos)
-    {
-        switch (currentObjPenMode)
-        {
-            case ObjectPenMode.Place:
-                t.PlaceObject(stageItemIndex,pos);
-                break;
-            case ObjectPenMode.Rotate:
-                break;
-            case ObjectPenMode.Remove:
-                break;
-        }
-        EditorUtility.SetDirty(t);
-    }
-
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -130,19 +94,8 @@ public class LevelBuilderEditor : Editor
 
         if (t.isActive)
         {
-            #region for drawmode
             GUILayout.Label("Pen Mode");
-            currentBasePenMode = (BasePenMode)GUILayout.SelectionGrid((int)currentBasePenMode, BasePenMode.GetNames(typeof(BasePenMode)), 2);
-            switch (currentBasePenMode)
-            {
-                case BasePenMode.Tile:
-                    currentTilePenMode = (TilePenMode)GUILayout.SelectionGrid((int)currentTilePenMode, TilePenMode.GetNames(typeof(TilePenMode)), 2);
-                    break;
-                case BasePenMode.Object:
-                    currentObjPenMode = (ObjectPenMode)GUILayout.SelectionGrid((int)currentObjPenMode, ObjectPenMode.GetNames(typeof(ObjectPenMode)), 3);
-                    break;
-            }
-            #endregion
+            currentTilePenMode = (TilePenMode)GUILayout.SelectionGrid((int)currentTilePenMode, TilePenMode.GetNames(typeof(TilePenMode)), 2);
 
             #region layer related
             GUILayout.Label("Layer Stats");
@@ -172,11 +125,6 @@ public class LevelBuilderEditor : Editor
             GUILayout.EndHorizontal();
             #endregion
 
-            //to select what object to place
-            if (currentBasePenMode == BasePenMode.Object)
-            {
-                stageItemIndex = EditorGUILayout.Popup("Item", stageItemIndex, t.GetStageObjectNames().ToArray());
-            }
 
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

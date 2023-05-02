@@ -13,16 +13,11 @@ public class PlayerListingBehaviour : MonoBehaviourPunCallbacks
     void Start()
     {
         playerName.text = PhotonNetwork.NickName;
-        NetworkingManager.instance.onReadySet += SetReadySignal;
-        NetworkingManager.instance.onTeamSet += SetBarColor;
-
-        SetBarColor();
     }
 
     private void OnDestroy()
     {
-        NetworkingManager.instance.onReadySet -= SetReadySignal;
-        NetworkingManager.instance.onTeamSet -= SetBarColor;
+        
     }
 
     // Update is called once per frame
@@ -30,21 +25,15 @@ public class PlayerListingBehaviour : MonoBehaviourPunCallbacks
     {
         
     }
-    void SetBarColor()
+    public void SetBarColor(Color newCol)
     {
-        if (photonView.IsMine)
-        {
-            var i = GetComponent<Image>().color =
-            NetworkingManager.instance.team == 0 ? Color.red : Color.cyan;
-        }
+        GetComponent<Image>().color = newCol;
     }
 
-    void SetReadySignal(bool ready)
+    public void SetReadySignal(bool ready)
     {
-        if (photonView.IsMine)
-        {
-            readySignal.GetChild(0).gameObject.SetActive(!ready);
-            readySignal.GetChild(1).gameObject.SetActive(ready);
-        }
+
+        readySignal.GetChild(0).gameObject.SetActive(!ready);
+        readySignal.GetChild(1).gameObject.SetActive(ready);
     }
 }

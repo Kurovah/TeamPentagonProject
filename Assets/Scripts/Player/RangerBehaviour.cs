@@ -5,7 +5,7 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BaseRanger : MonoBehaviourPunCallbacks
+public class RangerBehaviour : MonoBehaviourPunCallbacks
 {
     public Rigidbody playerRB;
     public Vector3 velocity;
@@ -131,21 +131,19 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         if (actions.actionMaps[0].FindAction("Attack").triggered)
         {
             //PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
-            BeginAttack();
+            AttackRPC();
         }
             //using  ability
         if (actions.actionMaps[0].FindAction("Ability").triggered)
         {
-            BeginAbility();
+            AbilityStartRPC();
         }
     }
     void StateUsingAbility()
     {
-        if (actions.actionMaps[0].FindAction("Ability").ReadValue<int>() == 0)
+        if (actions.actionMaps[0].FindAction("Ability").ReadValue<float>() == 0)
         {
-            state= CharacterStates.normal;
-            abilityComponent.OnAbilityEnd();
-            abilityBool = false;
+            AbilityEndRPC();
         }
     }
     void StateAttacking()
@@ -220,18 +218,32 @@ public class BaseRanger : MonoBehaviourPunCallbacks
             hitList.Add(h5);
         }
     }
+    void CheckHit()
+    {
 
+    }
+
+    void AttackRPC()
+    {
+        photonView.RPC("BeginAttack", RpcTarget.All);
+    }
+    void AbilityStartRPC()
+    {
+        photonView.RPC("BeginAbility", RpcTarget.All);
+    }
+    void AbilityEndRPC()
+    {
+        photonView.RPC("EndAbility", RpcTarget.All);
+    }
+
+    [PunRPC]
     void BeginAttack()
     {
         animator.SetTrigger("Attack");
         ShowModel();
         state = CharacterStates.attacking;
     }
-
-    void CheckHit()
-    {
-
-    }
+    [PunRPC]
     void BeginAbility()
     {
         velocity.x = velocity.z = 0;
@@ -239,6 +251,14 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         abilityComponent.OnAbilityStart();
         abilityBool = true;
     }
+    [PunRPC]
+    void EndAbility()
+    {
+        state = CharacterStates.normal;
+        abilityComponent.OnAbilityEnd();
+        abilityBool = false;
+    }
+
     public void HideModel()
     {
         baton.SetActive(false);
@@ -268,7 +288,6 @@ public class BaseRanger : MonoBehaviourPunCallbacks
         Gizmos.DrawLine(transform.position + new Vector3(0, rayStartHeight, -checkSpread),
             transform.position + new Vector3(0, rayStartHeight, -checkSpread) + Vector3.down * checkDistance);
     }
-
     float GetMaxHeight()
     {
         if(hitList.Count > 0)

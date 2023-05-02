@@ -13,15 +13,13 @@ public class GameManager : MonoBehaviour
     public UnityAction onRangerColorChanged;
     public ColourList colList;
 
-    public bool TestMode;
+    public bool loadingDone;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         playerData = new PlayerData();
-
-        if(!TestMode)
-            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
@@ -33,6 +31,7 @@ public class GameManager : MonoBehaviour
     List<AsyncOperation> loadingops = new List<AsyncOperation>();
     public void LoadNewScenewithFade(string _scenetoLoad)
     {
+        loadingDone = false;
         blackOutImage.CrossFadeAlpha(1, 0, true);
         var currentScenesNo = SceneManager.sceneCount;
         for(int i = 0; i < SceneManager.sceneCount; i++)
@@ -56,6 +55,12 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
         }
+
+        loadingDone = true;
+    }
+
+    public void FadeIn()
+    {
         //fade back in
         blackOutImage.CrossFadeAlpha(0, 0.1f, true);
     }

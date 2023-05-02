@@ -11,7 +11,7 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = GetComponentInParent<BaseRanger>().transform;
+        playerTransform = GetComponentInParent<RangerBehaviour>().transform;
         
     }
 

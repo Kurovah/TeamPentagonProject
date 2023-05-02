@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,16 +21,33 @@ public class StageLayoutSpawner : MonoBehaviour
     void CreateLayout()
     {
         LevelBuilder lastLevelPiece, currentLevelPiece;
-        GameObject levelObject;
+        GameObject levelObject = null;
         //start
         lastLevelPiece = transform.GetChild(0).gameObject.GetComponent<LevelBuilder>();
 
         
 
-
-        for (int i = 0; i < 3; i++)
+        
+        for (int i = 0; i < 4; i++)
         {
-            levelObject = Instantiate(stageLayouts.stageLayouts[0], transform.position, Quaternion.identity);
+
+            switch (i)
+            {
+                case 0:
+                    levelObject = Instantiate(stageLayouts.part1Layouts[(int)(Random.value * stageLayouts.part1Layouts.Count)], transform.position, Quaternion.identity);
+                    break;
+                case 1:
+                    levelObject = Instantiate(stageLayouts.part2Layouts[(int)(Random.value * stageLayouts.part2Layouts.Count)], transform.position, Quaternion.identity);
+                    break;
+                case 2:
+                    levelObject = Instantiate(stageLayouts.part3Layouts[(int)(Random.value * stageLayouts.part3Layouts.Count)], transform.position, Quaternion.identity);
+                    break;
+                case 3:
+                    levelObject = Instantiate(stageLayouts.part4Layouts[(int)(Random.value * stageLayouts.part4Layouts.Count)], transform.position, Quaternion.identity);
+                    break;
+            }
+
+            
             currentLevelPiece = levelObject.GetComponent<LevelBuilder>();
             //place the piece in the correct position
             currentLevelPiece.transform.position = lastLevelPiece.GetLevelEnd() + Vector3.forward * 2;

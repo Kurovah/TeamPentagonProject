@@ -183,7 +183,7 @@ public class NetworkingTest : MonoBehaviourPunCallbacks
             Vector3.zero,
             Quaternion.identity);
 
-        cam.GetComponent<CameraBehaviour>().target = p.transform;
+        cam.GetComponent<RangerCamera>().target = p.transform;
     }
 
     void SpawnAlien()

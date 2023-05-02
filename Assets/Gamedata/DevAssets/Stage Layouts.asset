@@ -18,3 +18,11 @@ MonoBehaviour:
     type: 3}
   stageLayouts:
   - {fileID: 387301943583827686, guid: 5a6c8ee8bbd34fc42b80c750f5bda22b, type: 3}
+  part1Layouts:
+  - {fileID: 1596893556437488156, guid: cb02a907ab2014c458755ad8697dbc1c, type: 3}
+  part2Layouts:
+  - {fileID: 5794262200469897578, guid: df4e694a3e04d3c4683f5516431d41ce, type: 3}
+  part3Layouts:
+  - {fileID: 1596893556437488156, guid: cb02a907ab2014c458755ad8697dbc1c, type: 3}
+  part4Layouts:
+  - {fileID: 1596893556437488156, guid: cb02a907ab2014c458755ad8697dbc1c, type: 3}

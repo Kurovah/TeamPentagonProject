@@ -48,20 +48,6 @@ public class LevelBuilder : MonoBehaviour
             g.transform.localScale = Vector3.one * 100;
             g.transform.parent = transform;
             g.transform.position = new Vector3(0, layer * 2, 0);
-
-            //tiles parent
-            GameObject tileParent = new GameObject();
-            tileParent.name = "Tile";
-            tileParent.transform.parent = g.transform;
-            tileParent.transform.localScale = Vector3.one;
-            tileParent.transform.localPosition = Vector3.zero;
-
-            //stage item parent
-            GameObject itemParent = new GameObject();
-            itemParent.name = "Stage_Items";
-            itemParent.transform.parent = g.transform;
-            itemParent.transform.localScale = Vector3.one;
-            itemParent.transform.localPosition = Vector3.zero;
         }
 
         //create tile if one isn't in this pos
@@ -71,7 +57,7 @@ public class LevelBuilder : MonoBehaviour
             obj = tileObject;
         } else
         {
-            obj = Instantiate(tileObject, GetLayer(layer).transform.GetChild(0));
+            obj = Instantiate(tileObject, GetLayer(layer).transform);
             obj.transform.localPosition = new Vector3(tilePos.x / 100, 0, tilePos.y / 100);
             obj.name = $"tile x:{tilePos.x}, y:{tilePos.y}";
         }
@@ -198,7 +184,7 @@ public class LevelBuilder : MonoBehaviour
         List<Transform> ret = new List<Transform>();
         if (LayerExists(layer))
         {
-            foreach (Transform t in GetLayer(layer).transform.GetChild(0))
+            foreach (Transform t in GetLayer(layer).transform)
             {
                 ret.Add(t);
             }
@@ -209,7 +195,7 @@ public class LevelBuilder : MonoBehaviour
     {
         if (LayerExists(layer))
         {
-            var l = GetLayer(layer).transform.GetChild(0);
+            var l = GetLayer(layer).transform;
 
             return l.childCount;
         }
@@ -251,26 +237,6 @@ public class LevelBuilder : MonoBehaviour
         }
     }
     #endregion
-    #region objectFunctions
-    public List<string> GetStageObjectNames()
-    {
-        List<string> n = new List<string>();
-        foreach(var i in stageItems.stageObject)
-        {
-            n.Add(i.name);
-        }
-        return n;
-    }
-    public void PlaceObject(int itemIndex,Vector2 tilePosition)
-    {
-        if (!IsAreaObstructedByObject(tilePosition))
-        {
-            var obj = Instantiate(stageItems.stageObject[itemIndex], GetLayer(layer).transform.GetChild(1));
-            obj.transform.localPosition = new Vector3(tilePosition.x/100, 0, tilePosition.y/100);
-            obj.transform.localScale = Vector3.one/100;
-        }
-    }
-    #endregion
 
     public void ChangeLayer(int increment)
     {
@@ -298,11 +264,11 @@ public class LevelBuilder : MonoBehaviour
             float size = 1.0f;
             List<Vector3> v = new List<Vector3>
             {
-                new Vector3(pos.x - size, layer, pos.y - size) + Vector3.up * 0.01f,
-                new Vector3(pos.x + size, layer, pos.y - size) + Vector3.up * 0.01f,
-                new Vector3(pos.x + size, layer, pos.y + size) + Vector3.up * 0.01f,
-                new Vector3(pos.x - size, layer, pos.y + size) + Vector3.up * 0.01f,
-                
+                new Vector3(pos.x - size - transform.position.x, layer, pos.y - size - transform.position.z) + Vector3.up * 0.01f,
+                new Vector3(pos.x + size - transform.position.x, layer, pos.y - size - transform.position.z) + Vector3.up * 0.01f,
+                new Vector3(pos.x + size - transform.position.x, layer, pos.y + size - transform.position.z) + Vector3.up * 0.01f,
+                new Vector3(pos.x - size - transform.position.x, layer, pos.y + size - transform.position.z) + Vector3.up * 0.01f,
+
             };
 
             List<int> tris = new List<int>
@@ -329,31 +295,11 @@ public class LevelBuilder : MonoBehaviour
     bool IsAreaObstructed(Vector2 pos)
     {
         //checking tiles
-        foreach(Transform t in GetLayer(layer).transform.GetChild(0))
+        foreach(Transform t in GetLayer(layer).transform)
         {
             Vector2 p = new Vector2(t.position.x, t.position.z);
             if (p == pos) return true;
         }
-
-        //checking objects
-        foreach (Transform t in GetLayer(layer).transform.GetChild(1))
-        {
-            Vector2 p = new Vector2(t.position.x, t.position.z);
-            if (p == pos) return true;
-        }
-
-        return false;
-    }
-    bool IsAreaObstructedByObject(Vector2 pos)
-    {
-        //checking objects
-        foreach (Transform t in GetLayer(layer).transform.GetChild(1))
-        {
-            Vector2 p = new Vector2(t.position.x, t.position.z);
-            Debug.Log("Can't place here");
-            if (p == pos) return true;
-        }
-
         return false;
     }
 

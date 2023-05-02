@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 2771109086433302442}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.618, y: 2.388, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6474606460482891237}
   m_Father: {fileID: 0}
@@ -65,6 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrabbed: 0
   dragSpeed: 5
+  bodyRenderer: {fileID: 9078148937445195048}
 --- !u!54 &2771109086433302445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -229,6 +230,12 @@ PrefabInstance:
 --- !u!4 &6474606460482891237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 96c5fc463dd377a4ca2860f6163c71bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6796166278075992590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9078148937445195048 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6652725513331149018, guid: 96c5fc463dd377a4ca2860f6163c71bd,
     type: 3}
   m_PrefabInstance: {fileID: 6796166278075992590}
   m_PrefabAsset: {fileID: 0}

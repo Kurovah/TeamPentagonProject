@@ -2,11 +2,13 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UIElements;
 
-public class LobbyUICallBacks : MonoBehaviourPun
+public class LobbyUICallBacks : MonoBehaviourPunCallbacks
 {
     public Transform roomMaker,roomJoiner,teamSelector,listingArea, roomListingArea;
     public TMP_InputField roomNameField;
@@ -16,6 +18,9 @@ public class LobbyUICallBacks : MonoBehaviourPun
     int playersInRoom;
     int ReadiedPlayers;
 
+    public GameObject ownPlayerListing;
+
+    [Header("Prefabs")]
     public GameObject playerListingObject, roomListingObject;
 
     // Start is called before the first frame update
@@ -25,6 +30,9 @@ public class LobbyUICallBacks : MonoBehaviourPun
         NetworkingManager.instance.joinedRoomAction += IncrementPlayers;
         NetworkingManager.instance.leftRoomAction += DecrementPlayers;
         NetworkingManager.instance.onRoomListUpdated += OnRoomListUpdate;
+
+        GameManager.instance.FadeIn();
+
     }
 
     private void OnDestroy()
@@ -58,11 +66,6 @@ public class LobbyUICallBacks : MonoBehaviourPun
 
     }
 
-    public void SetTeam(int team)
-    {
-        NetworkingManager.instance.team = team;
-    }
-
 
     #region player count
     [PunRPC]
@@ -93,42 +96,54 @@ public class LobbyUICallBacks : MonoBehaviourPun
     #region readying players
     public void RUCallback()
     {
-        photonView.RPC("ReadyUp", RpcTarget.AllBuffered);
-    }
-
-    [PunRPC]
-    public void ReadyUp()
-    {
-        ReadiedPlayers++;
         NetworkingManager.instance.SetReady(true);
         CheckAllReady();
     }
 
     public void UnRUCallback()
     {
-        photonView.RPC("UnReadyUp", RpcTarget.All);
+        NetworkingManager.instance.SetReady(false);
     }
 
-    [PunRPC]
-    public void UnReadyUp()
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        ReadiedPlayers--;
-        NetworkingManager.instance.SetReady(false);
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        PlayerListUpdate();
+        CheckAllReady();
     }
 
     void CheckAllReady()
     {
         //just to make sure one player doesn't go in by themselves
         //if (ReadiedPlayers == playersInRoom && playersInRoom > 1)
-        if (ReadiedPlayers == playersInRoom)
+        int readyPlayer = 0;
+        int playerCount = PhotonNetwork.CurrentRoom.Players.Count;
+        Debug.Log($"Players in room:{playerCount}");
+
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.Players.Count; i++)
+        {
+            Player p = PhotonNetwork.CurrentRoom.Players.ElementAt(i).Value;
+            if ((bool)p.CustomProperties["isReady"])
+            {
+                Debug.Log("This player is ready");
+                readyPlayer++;
+            }
+                
+        }
+
+        if (readyPlayer == playerCount)
+        {
+            Debug.Log("All ready");
             NetworkingManager.instance.GoToPlayArea();
+        }
+            
     }
     #endregion
 
 
     public void SwitchTeams()
     {
-        if (NetworkingManager.instance.team == 0)
+        if (NetworkingManager.instance.GetTeam() == 0)
             NetworkingManager.instance.SetTeam(1);
         else
             NetworkingManager.instance.SetTeam(0);
@@ -139,11 +154,59 @@ public class LobbyUICallBacks : MonoBehaviourPun
         roomMaker.gameObject.SetActive(false);
         roomJoiner.gameObject.SetActive(false);
         teamSelector.gameObject.SetActive(true);
-        photonView.RPC("AddListing", RpcTarget.AllBuffered);
+
+        //update the player list when you join
+        PlayerListUpdate();
+        
     }
 
-    public void OnRoomListUpdate(List<RoomInfo> roomList)
+    [PunRPC]
+    public void PlayerListUpdateRPC()
     {
+        //remove all children
+        for(int i = 0; i < listingArea.childCount; i++)
+        {
+            Destroy(listingArea.GetChild(i).gameObject);
+        }
+
+        //create listings
+        
+        for(int i = 0; i < PhotonNetwork.CurrentRoom.Players.Count; i++)
+        {
+            Player p = PhotonNetwork.CurrentRoom.Players.ElementAt(i).Value;
+            GameObject a = Instantiate(playerListingObject, Vector3.zero, Quaternion.identity);
+            a.transform.parent = listingArea;
+
+            //getting properties to set the bar
+            a.GetComponent<PlayerListingBehaviour>().SetBarColor(
+                (int)p.CustomProperties["playerTeam"] == 0? Color.red : Color.blue
+                );
+
+            Debug.Log($"{p.NickName}'s team is:{(int)p.CustomProperties["playerTeam"]}");
+
+            a.GetComponent<PlayerListingBehaviour>().SetReadySignal(
+                (bool)p.CustomProperties["isReady"]
+                );
+
+            if (p == PhotonNetwork.LocalPlayer)
+            {
+                Debug.Log("My Player");
+                ownPlayerListing = a;
+            }
+        }
+    }
+
+    
+    
+
+    public void PlayerListUpdate()
+    {
+        photonView.RPC("PlayerListUpdateRPC", RpcTarget.AllBuffered);
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        base.OnRoomListUpdate(roomList);
         //clear old list
         foreach(Transform t in roomListingArea)
         {
@@ -157,13 +220,6 @@ public class LobbyUICallBacks : MonoBehaviourPun
             var l = Instantiate(roomListingObject, roomListingArea);
             l.GetComponent<RoomListing>().roomName = i.Name;
         }
-    }
-
-    [PunRPC]
-    public void AddListing()
-    {
-        var a = PhotonNetwork.Instantiate(playerListingObject.name, Vector3.zero, Quaternion.identity);
-        a.transform.parent = listingArea;
     }
 
     public void LeaveRoom()

@@ -24,9 +24,6 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
             OnInput(InputAxis);
         }
     }
-
-
-    [PunRPC]
     public void OnAbilityStart()
     {
         Debug.Log("Starting ability");
@@ -53,15 +50,9 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
             grabTarget.GetComponent<IGrabbable>().OnGrabbed();
             abilityActive = true;
         }
-
-        if(photonView.IsMine)
-        {
-            photonView.RPC("OnAbilityStart", RpcTarget.OthersBuffered);
-        }
             
     }
 
-    [PunRPC]
     public void OnAbilityEnd()
     {
         if (abilityActive && grabTarget != null)
@@ -69,12 +60,6 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
             grabTarget.GetComponent<IGrabbable>().OnReleased();
             grabTarget = null;
             abilityActive = false;
-        }
-
-
-        if (photonView.IsMine)
-        {
-            photonView.RPC("OnAbilityEnd", RpcTarget.OthersBuffered);
         }
     }
 
@@ -84,11 +69,6 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
         if(grabTarget != null)
         {
             grabTarget.GetComponent<IGrabbable>().OnInput(input);
-        }
-
-        if (photonView.IsMine)
-        {
-            photonView.RPC("OnInput", RpcTarget.OthersBuffered, input);
         }
     }
 
