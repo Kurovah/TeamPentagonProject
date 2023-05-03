@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageLayoutSpawner : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class StageLayoutSpawner : MonoBehaviour
                     break;
             }
 
-            
+            SceneManager.MoveGameObjectToScene(levelObject, gameObject.scene);
             currentLevelPiece = levelObject.GetComponent<LevelBuilder>();
             //place the piece in the correct position
             currentLevelPiece.transform.position = lastLevelPiece.GetLevelEnd() + Vector3.forward * 2;
@@ -60,6 +61,7 @@ public class StageLayoutSpawner : MonoBehaviour
 
         //end
         levelObject = Instantiate(stageLayouts.endPiece, transform.position, Quaternion.identity);
+        SceneManager.MoveGameObjectToScene(levelObject, gameObject.scene);
         currentLevelPiece = levelObject.GetComponent<LevelBuilder>();
         //place the piece in the correct position
         currentLevelPiece.transform.position = lastLevelPiece.GetLevelEnd() + Vector3.forward * 2;

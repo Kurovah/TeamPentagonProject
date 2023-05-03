@@ -127,4 +127,10 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         playerProperties["isReady"] = ready;
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
+
+    public void BackToLobby()
+    {
+        SetReady(false);
+        GameManager.instance.LoadNewScenewithFade("LobbyScene");
+    }
 }

@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class LobbyUICallBacks : MonoBehaviourPunCallbacks
 {
-    public Transform roomMaker,roomJoiner,teamSelector,listingArea, roomListingArea;
+    public Transform roomMaker,roomJoiner,teamSelector,listingArea, roomListingArea,lobbyMenu;
     public TMP_InputField roomNameField;
 
     public TMP_Text tally;
@@ -33,6 +33,13 @@ public class LobbyUICallBacks : MonoBehaviourPunCallbacks
 
         GameManager.instance.FadeIn();
 
+        //if the player is already in a room then show the room
+        if (PhotonNetwork.InRoom)
+        {
+            teamSelector.gameObject.SetActive(true);
+            lobbyMenu.gameObject.SetActive(false);
+        }
+
     }
 
     private void OnDestroy()
@@ -46,7 +53,8 @@ public class LobbyUICallBacks : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        tally.text = $"{ReadiedPlayers}/{playersInRoom}";
+        if(PhotonNetwork.InRoom)
+            tally.text = $"{ReadiedPlayers}/{PhotonNetwork.CurrentRoom.Players.Count}";
     }
 
     public void CreateRoom()
@@ -130,6 +138,8 @@ public class LobbyUICallBacks : MonoBehaviourPunCallbacks
             }
                 
         }
+
+        ReadiedPlayers = readyPlayer;
 
         if (readyPlayer == playerCount)
         {

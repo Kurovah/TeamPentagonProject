@@ -3864,6 +3864,7 @@ MonoBehaviour:
   teamSelector: {fileID: 1203508540}
   listingArea: {fileID: 2000744972}
   roomListingArea: {fileID: 2080204003}
+  lobbyMenu: {fileID: 1145281021}
   roomNameField: {fileID: 870050200}
   tally: {fileID: 642646560}
   ownPlayerListing: {fileID: 0}

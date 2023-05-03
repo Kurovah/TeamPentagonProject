@@ -5,12 +5,18 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.SceneManagement;
 
 public class MatchManager : MonoBehaviourPunCallbacks
 {
     public static MatchManager instance;
     public Transform r1spawn, r2spawn, a1spawn, a2spawn;
     public GameObject rangerObject, rangerCam, alienObject, alienCam;
+
+    [Header("OutcomeBanners")]
+    public GameObject outcomeBanner;
+    public GameObject loserText;
+    public GameObject winnerText;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +32,25 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public void RangerWin()
     {
+        
+        outcomeBanner.SetActive(true);
 
+
+        bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 0;
+
+        GameManager.instance.ChangeCurrency(isWinner? 10: 5);
+        loserText.SetActive(!isWinner);
+        winnerText.SetActive(isWinner);
+    }
+
+    public void AlienWin()
+    {
+        outcomeBanner.SetActive(true);
+        bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 1;
+
+        GameManager.instance.ChangeCurrency(isWinner ? 10 : 5);
+        loserText.SetActive(!isWinner);
+        winnerText.SetActive(isWinner);
     }
 
     void SpawnPlayerChar()
@@ -69,6 +93,12 @@ public class MatchManager : MonoBehaviourPunCallbacks
             }
         }
 
-        PhotonNetwork.Instantiate(g.name, tr.position, tr.rotation);
+        var a = PhotonNetwork.Instantiate(g.name, tr.position, tr.rotation);
+        SceneManager.MoveGameObjectToScene(a, gameObject.scene);
+    }
+
+    public void BackToLobby()
+    {
+        NetworkingManager.instance.BackToLobby();
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-
+    public TMP_Text currency_text;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,7 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        currency_text.text = GameManager.instance.playerData.medals.ToString();
     }
 
     public void ScaleButton(RectTransform buttonTransform, Vector2 newScale)

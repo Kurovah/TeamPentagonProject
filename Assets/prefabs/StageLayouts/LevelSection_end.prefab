@@ -11321,7 +11321,7 @@ MonoBehaviour:
   stageItems: {fileID: 11400000, guid: b5e968cfb8b7aaf45a7413b3beddd214, type: 2}
   tileObject: {fileID: 2718162505215124989, guid: f1b695120199a1945a28714a81534174,
     type: 3}
-  cursorPos: {x: 0.45312953, y: 2, z: 6.901451}
+  cursorPos: {x: -26.943512, y: 2, z: 3.4769957}
   EndPointOffset: {x: 0, y: 0, z: 0}
 --- !u!33 &8921684486549781737
 MeshFilter:
@@ -11454,6 +11454,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Win Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080892926931302899, guid: 191912ef7709e57428723d337d3107df,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 191912ef7709e57428723d337d3107df, type: 3}

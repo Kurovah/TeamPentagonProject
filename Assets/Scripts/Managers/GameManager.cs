@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadingProgress());
     }
 
+    public void ChangeCurrency(int amount)
+    {
+        playerData.medals += amount;
+    }
+
     IEnumerator LoadingProgress()
     {
         for (int i = 0; i < loadingops.Count; i++)
