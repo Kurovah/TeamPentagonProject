@@ -24,6 +24,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     void Start()
     {
         instance = this;
+        GoOffline();
     }
 
     // Update is called once per frame
@@ -57,6 +58,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             //joining own room
             PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
         }
+    }
+
+    public void GoOffline()
+    {
+        PhotonNetwork.OfflineMode = true;
     }
 
     public override void OnConnectedToMaster()

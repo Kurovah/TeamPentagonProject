@@ -13,6 +13,9 @@ public class MatchManager : MonoBehaviourPunCallbacks
     public Transform r1spawn, r2spawn, a1spawn, a2spawn;
     public GameObject rangerObject, rangerCam, alienObject, alienCam;
 
+    public int rangerHP = 6;
+    public int alienResource = 0;
+
     [Header("OutcomeBanners")]
     public GameObject outcomeBanner;
     public GameObject loserText;
@@ -41,8 +44,8 @@ public class MatchManager : MonoBehaviourPunCallbacks
         GameManager.instance.ChangeCurrency(isWinner? 10: 5);
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
+        NetworkingManager.instance.SetReady(false);
     }
-
     public void AlienWin()
     {
         outcomeBanner.SetActive(true);
@@ -51,6 +54,30 @@ public class MatchManager : MonoBehaviourPunCallbacks
         GameManager.instance.ChangeCurrency(isWinner ? 10 : 5);
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
+        NetworkingManager.instance.SetReady(false);
+    }
+
+    public void ChangeRangerHP(int amount)
+    {
+        photonView.RPC("ChangeRangerHPRPC", RpcTarget.All);
+    }
+    void CheckRangersDead()
+    {
+
+    }
+    public void ChangeAlienResource(int amount)
+    {
+        photonView.RPC("ChangeAlienResourceRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    public void ChangeRangerHPRPC(int amount)
+    {
+        rangerHP += amount;
+    }
+    [PunRPC]
+    public void ChangeAlienResourceRPC(int amount)
+    {
+        alienResource += amount;
     }
 
     void SpawnPlayerChar()

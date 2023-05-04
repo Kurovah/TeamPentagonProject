@@ -21,12 +21,6 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     }
     public CharacterStates characterState;
 
-    public Dictionary<ResourceTypes, int> resources = new Dictionary<ResourceTypes, int>
-    {
-        { ResourceTypes.Destron, 0},
-        { ResourceTypes.Anima, 0},
-        { ResourceTypes.Aquidia, 0},
-    };
     List<ResourceSpot> resourceSpots = new List<ResourceSpot>();
     Coroutine siphonCR;
     // Start is called before the first frame update
@@ -88,13 +82,23 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     void SummonCritter()
     {
         RaycastHit place;
-        if(HasResources(new Dictionary<ResourceTypes, int> { 
-            { ResourceTypes.Destron , 1} 
-        }) && 
+        if(HasResources(5) && 
         Physics.Raycast(meshTransform.position, Vector3.down, out place,Mathf.Infinity,LayerMask.GetMask("Solid")))
         {
             Instantiate(critterObject, place.point, Quaternion.identity);
-            resources[ResourceTypes.Destron] -= 1;
+            
+        }
+    }
+
+    void SetResource(int amount)
+    {
+        if (FindObjectOfType<MatchManager>() != null)
+        {
+            MatchManager.instance.ChangeRangerHP(amount);
+        }
+        else
+        {
+            OnboardingManager.instance.ChangeRangerHP(amount);
         }
     }
 
@@ -117,7 +121,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < resourceSpots.Count; i++)
             {
-                resources[resourceSpots[i].resource] += 1;
+                SetResource(Random.Range(5,9));
             }
         }
 
@@ -125,15 +129,15 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         siphonCR = StartCoroutine(Siphon());
     }
 
-    bool HasResources(Dictionary<ResourceTypes, int> _resourceCheck)
+    bool HasResources(int amount)
     {
-        foreach(KeyValuePair<ResourceTypes, int> p in _resourceCheck)
+        if (FindObjectOfType<MatchManager>())
         {
-            if (resources[p.Key] < p.Value)
-                return false;
+            return amount < MatchManager.instance.alienResource;
+        } else
+        {
+            return amount < OnboardingManager.instance.alienResource;
         }
-
-        return true;
     }
 
     void SetModelFacing(Vector3 _facing)

@@ -7,10 +7,7 @@ using UnityEngine.UI;
 
 public class AienHUD : MonoBehaviour
 {
-    public TMP_Text destronText;
-    public TMP_Text animaText;
-    public TMP_Text aquidiaText;
-
+    public TMP_Text resourceText;
     AlienBehaviour alien;
     // Start is called before the first frame update
     void Start()
@@ -21,9 +18,19 @@ public class AienHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        destronText.text = alien.resources[ResourceTypes.Destron].ToString();   
-        animaText.text = alien.resources[ResourceTypes.Anima].ToString();   
-        aquidiaText.text = alien.resources[ResourceTypes.Aquidia].ToString();   
+        resourceText.text = GetResource().ToString();     
+    }
+
+    int GetResource()
+    {
+        if (FindObjectOfType<MatchManager>())
+        {
+            return MatchManager.instance.alienResource;
+        }
+        else
+        {
+            return OnboardingManager.instance.alienResource;
+        }
     }
 
     public void SetAlienTarget(AlienBehaviour _alien)

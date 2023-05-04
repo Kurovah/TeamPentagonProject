@@ -163,6 +163,20 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     {
 
     }
+
+    public void GetHurt()
+    {
+        if(FindObjectOfType<MatchManager>() != null)
+        {
+            MatchManager.instance.ChangeRangerHP(-1);
+        } else
+        {
+            OnboardingManager.instance.ChangeRangerHP(-1);
+        }
+
+        state = CharacterStates.hurt;
+    }
+
     void SetModelFacing(Vector3 _facing)
     {
         _facing.y = 0;
