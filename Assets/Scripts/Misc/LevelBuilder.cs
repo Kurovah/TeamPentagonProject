@@ -75,7 +75,7 @@ public class LevelBuilder : MonoBehaviour
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.Rotate(Vector3.up, r);
 
-        UpdateAllTiles();
+        // UpdateAllTiles();
          
     }
     public void RemoveTile(Vector2 tilePos)

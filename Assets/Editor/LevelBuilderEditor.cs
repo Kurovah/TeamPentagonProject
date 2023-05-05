@@ -18,6 +18,7 @@ public class LevelBuilderEditor : Editor
     public TilePenMode currentTilePenMode;
 
     int stageItemIndex = 0;
+    private bool shouldDraw = false;
 
     private void OnEnable()
     {
@@ -55,15 +56,23 @@ public class LevelBuilderEditor : Editor
 
         if (t.isActive)
         {
+            
             //when clicking
             if(e.isMouse && e.button == 0)
             {
                 Tools.current = Tool.None;
                 HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+                
                 switch (e.type)
                 {
+                    case EventType.MouseUp:
+                        break;
                     case EventType.MouseDown:
-                    case EventType.MouseDrag:
+                        // toggle
+                        shouldDraw = !shouldDraw;
+                        break;
+                    case EventType.MouseMove:
+                        if(shouldDraw)
                             PerformTileAction(p);
                         break;
                 }
