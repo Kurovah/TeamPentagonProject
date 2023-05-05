@@ -105,6 +105,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     }
     public void GoToPlayArea()
     {
+        Debug.Log("Entering Play Space");
         GameManager.instance.LoadNewScenewithFade("PlayScene");
     }
 
