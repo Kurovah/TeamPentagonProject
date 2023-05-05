@@ -32,7 +32,7 @@ public class RangerHUD : MonoBehaviour
         if (matchManagerAvailable)
         {
             UpdatePips(MatchManager.instance.rangerHP);
-        }
+        }else 
         {
             UpdatePips(OnboardingManager.instance.rangerHP);
         }
