@@ -36,13 +36,17 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
 
     public CharacterStates state = CharacterStates.normal;
 
+    [Header("Ability Object")]
+    public GameObject telepathAbility;
+    public GameObject warpAbility;
+
     IRangerAbility abilityComponent;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRB= GetComponent<Rigidbody>();
-        abilityComponent = GetComponentInChildren<IRangerAbility>();
+        GiveAbillity(0);
         if (!photonView.IsMine)
         {
             cameraObject.SetActive(false);
@@ -134,7 +138,7 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
             AttackRPC();
         }
             //using  ability
-        if (actions.actionMaps[0].FindAction("Ability").triggered)
+        if (actions.actionMaps[0].FindAction("Ability").triggered && abilityComponent != null)
         {
             AbilityStartRPC();
         }
@@ -316,5 +320,16 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
         }
         
         return 0;
+    }
+
+    public void GiveAbillity(int type)
+    {
+        var a = Instantiate(
+            type == 0? telepathAbility: warpAbility,
+            transform
+            );
+
+        abilityComponent = GetComponentInChildren<IRangerAbility>();
+
     }
 }
