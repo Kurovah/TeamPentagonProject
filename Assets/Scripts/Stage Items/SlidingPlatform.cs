@@ -34,6 +34,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
 
     public void OnGrabbed()
     {
+        print("on platform");
         isGrabbed = true;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
@@ -55,6 +56,7 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
 
     public void OnReleased()
     {
+        print("off platform");
         isGrabbed = false;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 0);
         SetVelocity(Vector3.zero);

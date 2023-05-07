@@ -89,7 +89,7 @@ public class LevelBuilder : MonoBehaviour
             if (checkedTilePos == tilePos)
             {
                 DestroyImmediate(t.gameObject);
-                UpdateAllTiles();
+                // UpdateAllTiles();
                 break;
             }
         }
@@ -134,7 +134,7 @@ public class LevelBuilder : MonoBehaviour
                 break;
         }
     }
-    void UpdateAllTiles()
+    public void UpdateAllTiles()
     {
         //make sure it updates properly
         var tt = GetTileTransforms();
@@ -289,7 +289,7 @@ public class LevelBuilder : MonoBehaviour
 
     public Vector3 GetLevelEnd()
     {
-        return transform.position + EndPointOffset;
+        return transform.position + (EndPointOffset*transform.localScale.x);
     }
 
     bool IsAreaObstructed(Vector2 pos)
@@ -311,6 +311,6 @@ public class LevelBuilder : MonoBehaviour
     private void OnDrawGizmos()
     {
         
-        Gizmos.DrawWireSphere(transform.position + EndPointOffset, 1);
+        Gizmos.DrawWireSphere(GetLevelEnd(), 1);
     }
 }

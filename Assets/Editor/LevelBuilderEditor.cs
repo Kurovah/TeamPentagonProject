@@ -70,6 +70,7 @@ public class LevelBuilderEditor : Editor
                     case EventType.MouseDown:
                         // toggle
                         shouldDraw = !shouldDraw;
+                        if(!shouldDraw) t.UpdateAllTiles();
                         break;
                     case EventType.MouseMove:
                         if(shouldDraw)
