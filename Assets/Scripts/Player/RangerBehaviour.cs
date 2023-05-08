@@ -88,6 +88,9 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
                 case CharacterStates.attacking:
                     StateAttacking();
                     break;
+                case CharacterStates.hurt:
+                    StateHurt();
+                    break;
             }
 
 
