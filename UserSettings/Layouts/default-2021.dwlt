@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 95
+  controlID: 68
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 19
+  controlID: 69
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 20
+  controlID: 70
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 1123.3333
     height: 552
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -1412,23 +1412,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 4eaaffff
-      m_LastClickedID: -21938
-      m_ExpandedIDs: 1233fcff0e6effff9a84ffff9e84ffffa284ffffa684ffffaa84ffffb284ffffb684ffffe284ffffe684ffffee84ffff0efbfffff4ffffffca710000a0720000f8720000fc720000924f0100
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 0cfbffff0efbffffe4f30100084c02005c8f0300
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Mesh
-        m_OriginalName: Mesh
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 1078198
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -1664,9 +1664,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.527202, y: 26.8418, z: -63.802242}
+    m_Target: {x: -16.082073, y: 25.887074, z: -55.70057}
     speed: 2
-    m_Value: {x: 6.527202, y: 26.8418, z: -63.802242}
+    m_Value: {x: -16.082073, y: 25.887074, z: -55.70057}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1689,7 +1689,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -1713,13 +1713,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.384787, y: 0.04606915, z: -0.019319495, w: -0.921903}
+    m_Target: {x: -0.4585637, y: 0.009860094, z: -0.005081738, w: -0.8886172}
     speed: 2
-    m_Value: {x: -0.38334364, y: 0.04470401, z: -0.018670868, w: -0.9223343}
+    m_Value: {x: -0.45722017, y: 0.009867488, z: -0.005066829, w: -0.88928443}
   m_Size:
-    m_Target: 0.91001374
+    m_Target: 3.1721456
     speed: 2
-    m_Value: 0.9100138
+    m_Value: 2.5124717
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1798,10 +1798,10 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 165.66669}
-    m_SelectedIDs: 3ede0000
-    m_LastClickedID: 56894
-    m_ExpandedIDs: 0000000024de000028de00002ade000034de000038de000046de00004c4f010000ca9a3b
+    scrollPos: {x: 0, y: 229.66669}
+    m_SelectedIDs: d28f0300
+    m_LastClickedID: 233426
+    m_ExpandedIDs: 00000000c28f0300c48f0300c68f0300c88f0300ca8f0300d08f030000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1829,7 +1829,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000
+    m_ExpandedIDs: 00000000c28f0300c48f0300c68f0300c88f0300ca8f0300
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1944,7 +1944,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_ObjectsLockedBeforeSerialization: []
-  m_InstanceIDsLockedBeforeSerialization: 0cfbffff
+  m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
     m_CachedPref: 160
     m_ControlHash: -371814159
@@ -1954,5 +1954,5 @@ MonoBehaviour:
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
-    m_IsLocked: 1
+    m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
