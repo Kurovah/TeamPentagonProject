@@ -121,6 +121,10 @@ public class MatchManager : MonoBehaviourPunCallbacks
         }
 
         var a = PhotonNetwork.Instantiate(g.name, tr.position, tr.rotation);
+        if(t==0 && isOtherMember)
+        {
+            a.GetComponent<RangerBehaviour>().GiveAbillity(1);
+        }
         SceneManager.MoveGameObjectToScene(a, gameObject.scene);
     }
 

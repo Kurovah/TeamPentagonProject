@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         }
 
         loadingops.Add(SceneManager.LoadSceneAsync(_scenetoLoad, LoadSceneMode.Additive));
+        Debug.Log($"Loading {_scenetoLoad}");
         StartCoroutine(LoadingProgress());
     }
 

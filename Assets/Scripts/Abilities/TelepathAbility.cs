@@ -17,12 +17,12 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
     // Update is called once per frame
     void Update()
     {
-        if (abilityActive)
-        {
-            Vector2 InputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //if (abilityActive)
+        //{
+        //    Vector2 InputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-            OnInput(InputAxis);
-        }
+        //    OnInput(InputAxis);
+        //}
     }
     public void OnAbilityStart()
     {
@@ -52,21 +52,19 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
         }
             
     }
-
     public void OnAbilityEnd()
     {
         if (abilityActive && grabTarget != null)
         {
+            Debug.Log("Letting go");
             grabTarget.GetComponent<IGrabbable>().OnReleased();
             grabTarget = null;
             abilityActive = false;
         }
     }
-
-    
     public void OnInput(Vector2 input)
     {
-        if(grabTarget != null)
+        if (grabTarget != null)
         {
             grabTarget.GetComponent<IGrabbable>().OnInput(input);
         }
@@ -79,7 +77,6 @@ public class TelepathAbility : MonoBehaviourPunCallbacks, IRangerAbility
             grabbables.Add(other.gameObject);
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         //remove item from list

@@ -105,7 +105,6 @@ public class LobbyUICallBacks : MonoBehaviourPunCallbacks
     public void RUCallback()
     {
         NetworkingManager.instance.SetReady(true);
-        CheckAllReady();
     }
 
     public void UnRUCallback()

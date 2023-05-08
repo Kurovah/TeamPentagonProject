@@ -21,6 +21,7 @@ public class Barrier : MonoBehaviour
     public void BreakBarrier()
     {
         Mesh.SetActive(false);
+        GetComponent<BoxCollider>().enabled = false;
         if(destroyEffect != null)
         {
             destroyEffect.Play();

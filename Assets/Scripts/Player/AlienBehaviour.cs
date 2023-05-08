@@ -10,7 +10,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     Vector3 velocity;
     Rigidbody rb;
     public Transform meshTransform;
-    public GameObject critterObject;
+    public GameObject critterObject, mineObject;
 
     public GameObject alienCam;
     public GameObject HUD;
@@ -23,6 +23,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
 
     List<ResourceSpot> resourceSpots = new List<ResourceSpot>();
     Coroutine siphonCR;
+    public ParticleSystem siphonEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +78,21 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         {
             SummonCritter();
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SummonMine();
+        }
+    }
+
+    void SummonMine()
+    {
+        RaycastHit place;
+        if (HasResources(5) &&
+        Physics.Raycast(meshTransform.position, Vector3.down, out place, Mathf.Infinity, LayerMask.GetMask("Solid")))
+        {
+            Instantiate(mineObject, place.point, Quaternion.identity);
+
+        }
     }
 
     void SummonCritter()
@@ -104,6 +120,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
 
     void StartSiphon()
     {
+        siphonEffect.Play();
         if (siphonCR != null)
             StopCoroutine(siphonCR);
 
@@ -112,6 +129,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
 
     void EndSiphon()
     {
+        siphonEffect.Stop();
         StopCoroutine(siphonCR);
     }
     

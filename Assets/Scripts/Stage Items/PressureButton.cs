@@ -31,12 +31,12 @@ public class PressureButton : MonoBehaviour
 
     public void PressButtonDown()
     {
-        buttonTransform.localPosition = new Vector3(0, -0.17f, 0);
+        buttonTransform.localPosition = new Vector3(0, -0.146f, 0);
     }
 
     public void PushButtonUp()
     {
-        buttonTransform.localPosition = new Vector3(0, 0.15f, 0);
+        buttonTransform.localPosition = new Vector3(0, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)

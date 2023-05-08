@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2771109086433302445}
   - component: {fileID: 2771109086433302434}
   - component: {fileID: 2771109086433302435}
-  - component: {fileID: 2988039646986949074}
   m_Layer: 0
   m_Name: SlidingPlatform
   m_TagString: Untagged
@@ -104,7 +103,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2771109086433302435}
-  - {fileID: 2988039646986949074}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -124,22 +122,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
---- !u!114 &2988039646986949074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2771109086433302442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1001 &620617127830198074
 PrefabInstance:
   m_ObjectHideFlags: 0

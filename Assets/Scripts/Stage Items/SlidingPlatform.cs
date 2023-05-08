@@ -22,19 +22,19 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     {
         rb = GetComponent<Rigidbody>();
         SetAxisLock(movementAxis);
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (isGrabbed)
-            rb.velocity = velocity * dragSpeed;
     }
 
     public void OnGrabbed()
     {
         isGrabbed = true;
+        rb.isKinematic = true;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
 
@@ -56,19 +56,14 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     public void OnReleased()
     {
         isGrabbed = false;
+        rb.isKinematic = false;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 0);
         SetVelocity(Vector3.zero);
     }
 
-    [PunRPC]
     void SetVelocity(Vector3 _velocity)
     {
-        velocity = _velocity;
-
-        if (photonView.IsMine)
-        {
-            photonView.RPC("SetVelocity", RpcTarget.OthersBuffered, _velocity);
-        }
+        rb.velocity = _velocity;
     }
 
     public void SwitchAxis()
@@ -91,9 +86,11 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
         {
             case AxisType.XAxis:
                 meshTransform.rotation = Quaternion.Euler(0, 90, 0);
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll | ~RigidbodyConstraints.FreezePositionX;
                 break;
             case AxisType.ZAxis:
                 meshTransform.rotation = Quaternion.Euler(0, 0, 0);
+                GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll | ~RigidbodyConstraints.FreezePositionZ;
                 break;
         }
     }

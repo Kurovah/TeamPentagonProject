@@ -145,11 +145,16 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     }
     void StateUsingAbility()
     {
+        AbilityUseRPC(actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>());
+
         if (actions.actionMaps[0].FindAction("Ability").ReadValue<float>() == 0)
         {
             AbilityEndRPC();
         }
     }
+
+
+
     void StateAttacking()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
@@ -187,6 +192,11 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
         meshTransform.forward = Vector3.Slerp(meshTransform.forward, _facing, 0.1f);
     }
 
+
+    public Vector3 GetModelFacing()
+    {
+        return meshTransform.forward;
+    }
 
     float moveFloat;
     bool abilityBool;
@@ -251,9 +261,13 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     }
     void AbilityEndRPC()
     {
+        
         photonView.RPC("EndAbility", RpcTarget.All);
     }
-
+    void AbilityUseRPC(Vector2 input)
+    {
+        photonView.RPC("UseAbility", RpcTarget.All, input);
+    }
     [PunRPC]
     void BeginAttack()
     {
@@ -272,9 +286,16 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     [PunRPC]
     void EndAbility()
     {
+        Debug.Log("Ability End");
         state = CharacterStates.normal;
         abilityComponent.OnAbilityEnd();
         abilityBool = false;
+    }
+    [PunRPC]
+    void UseAbility(Vector2 input)
+    {
+        Debug.Log($"Player Using Ability input {input}");
+        abilityComponent.OnInput(input);
     }
 
     public void HideModel()

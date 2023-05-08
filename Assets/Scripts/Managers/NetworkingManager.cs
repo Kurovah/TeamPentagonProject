@@ -24,7 +24,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     void Start()
     {
         instance = this;
-        GoOffline();
+        //GoOffline();
     }
 
     // Update is called once per frame
