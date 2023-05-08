@@ -35,7 +35,6 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     {
         print("on platform");
         isGrabbed = true;
-        rb.isKinematic = true;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 1);
     }
 
@@ -58,7 +57,6 @@ public class SlidingPlatform : MonoBehaviourPunCallbacks, IGrabbable
     {
         print("off platform");
         isGrabbed = false;
-        rb.isKinematic = false;
         bodyRenderer.sharedMaterial.SetInt("_FresOn", 0);
         SetVelocity(Vector3.zero);
     }

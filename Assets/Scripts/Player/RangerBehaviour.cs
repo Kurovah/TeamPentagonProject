@@ -170,7 +170,11 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     }
     void StateHurt()
     {
-
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+        {
+            HideModel();
+            state = CharacterStates.normal;
+        }
     }
 
     public void GetHurt()
@@ -182,7 +186,7 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
         {
             OnboardingManager.instance.ChangeRangerHP(-1);
         }
-
+        animator.SetTrigger("hurt");
         state = CharacterStates.hurt;
     }
 
