@@ -64,6 +64,8 @@ MonoBehaviour:
   - SetPositionRPC
   - SetVelocityRPC
   - GiveAbillity
+  - StartSiphon
+  - ChangeAlienResource
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

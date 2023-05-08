@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2116344913426161616}
-  - component: {fileID: 2212314242081838252}
   - component: {fileID: 4203832086425568238}
   - component: {fileID: 628593013658067356}
   m_Layer: 7
@@ -35,19 +34,6 @@ Transform:
   m_Father: {fileID: 2428487354657737514}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &2212314242081838252
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2474268921473413670}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!199 &4203832086425568238
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -4839,6 +4825,7 @@ GameObject:
   - component: {fileID: 3010344450051359098}
   - component: {fileID: -8700519244953101169}
   - component: {fileID: 318447335841709489}
+  - component: {fileID: 6631517900719355513}
   m_Layer: 7
   m_Name: WarpAbility
   m_TagString: Untagged
@@ -4875,7 +4862,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warpTime: 2
-  warpBallTransform: {fileID: 2116344913426161616}
   warpEffect: {fileID: 628593013658067356}
 --- !u!114 &-8700519244953101169
 MonoBehaviour:
@@ -4916,6 +4902,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!135 &6631517900719355513
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3598218450716379843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6100367089426254430
 GameObject:
   m_ObjectHideFlags: 0
@@ -4943,7 +4942,7 @@ Transform:
   m_GameObject: {fileID: 6100367089426254430}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2116344913426161616}

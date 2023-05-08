@@ -59,26 +59,34 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public void ChangeRangerHP(int amount)
     {
-        photonView.RPC("ChangeRangerHPRPC", RpcTarget.All);
+        rangerHP += amount;
+        CheckRangersDead();
+        if (photonView.IsMine)
+        {
+            photonView.RPC("ChangeRangerHPRPC", RpcTarget.OthersBuffered);
+        }
+        
     }
     void CheckRangersDead()
     {
-
+        if(rangerHP == 0)
+        {
+            AlienWin();
+        }
     }
+
+    [PunRPC]
     public void ChangeAlienResource(int amount)
     {
-        photonView.RPC("ChangeAlienResourceRPC", RpcTarget.All);
-    }
-    [PunRPC]
-    public void ChangeRangerHPRPC(int amount)
-    {
-        rangerHP += amount;
-    }
-    [PunRPC]
-    public void ChangeAlienResourceRPC(int amount)
-    {
+
         alienResource += amount;
+        if (photonView.IsMine)
+        {
+            photonView.RPC("ChangeAlienResource", RpcTarget.OthersBuffered);
+        }
+        
     }
+  
 
     void SpawnPlayerChar()
     {

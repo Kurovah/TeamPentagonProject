@@ -7,7 +7,6 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
 {
     public float warpTime;
     Transform playerTransform;
-    public Transform warpBallTransform;
     public ParticleSystem warpEffect;
     bool abilityActive = false;
     // Start is called before the first frame update
@@ -25,15 +24,13 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
 
             OnInput(InputAxis);
             transform.localPosition += transform.forward * 10 * Time.deltaTime;
-        } else
-        {
-            warpBallTransform.forward =  GetComponentInParent<RangerBehaviour>().GetModelFacing();
         }
     }
 
     public void OnAbilityStart()
     {
         Debug.Log("Starting ability");
+        transform.forward = GetComponentInParent<RangerBehaviour>().GetModelFacing();
         abilityActive = true;
         warpEffect.Play();
         StartCoroutine(WarpHoldTimer());
