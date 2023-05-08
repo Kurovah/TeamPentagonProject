@@ -159,7 +159,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         {
             for(int i = 0; i < resourceSpots.Count; i++)
             {
-                SetResource(Random.Range(1,3));
+                SetResource(1);
             }
         }
 
