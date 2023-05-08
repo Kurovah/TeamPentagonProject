@@ -91,7 +91,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         Physics.Raycast(meshTransform.position, Vector3.down, out place, Mathf.Infinity, LayerMask.GetMask("Solid")))
         {
             SetResource(-5);
-            PhotonNetwork.Instantiate(mineObject.name, place.point, Quaternion.identity);
+            Instantiate(mineObject, place.point, Quaternion.identity);
 
         }
         if (photonView.IsMine)
@@ -107,7 +107,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         Physics.Raycast(meshTransform.position, Vector3.down, out place,Mathf.Infinity,LayerMask.GetMask("Solid")))
         {
             SetResource(-5);
-            PhotonNetwork.Instantiate(critterObject.name, place.point, Quaternion.identity);
+            Instantiate(critterObject, place.point, Quaternion.identity);
             
         }
 

@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 8.44
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2629,7 +2629,7 @@ ParticleSystem:
     magnitude:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 5.07
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2683,11 +2683,11 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.24
+    dampen: 0
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.66
+      scalar: 0.09
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9693,6 +9693,7 @@ GameObject:
   - component: {fileID: 1475004847126557195}
   - component: {fileID: 1475004847126557188}
   - component: {fileID: 1475004847126557194}
+  - component: {fileID: 1698375248153370322}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -9745,3 +9746,25 @@ MonoBehaviour:
   restingParticles: {fileID: 1475004846740176635}
   explosionSystem: {fileID: 1475004845898838239}
   life: 1
+--- !u!114 &1698375248153370322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475004847126557191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
