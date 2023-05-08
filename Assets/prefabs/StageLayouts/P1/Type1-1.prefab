@@ -55,7 +55,7 @@ MonoBehaviour:
   stageItems: {fileID: 11400000, guid: b5e968cfb8b7aaf45a7413b3beddd214, type: 2}
   tileObject: {fileID: 2718162505215124989, guid: f1b695120199a1945a28714a81534174,
     type: 3}
-  cursorPos: {x: -12.29705, y: 1, z: 16.79602}
+  cursorPos: {x: 63.88895, y: 1, z: -36.560158}
   EndPointOffset: {x: 26, y: 0, z: 18}
 --- !u!33 &1596893556437488144
 MeshFilter:
@@ -22096,11 +22096,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.059384804
-      objectReference: {fileID: 0}
-    - target: {fileID: 2771109086433302446, guid: 40405a4942cc43342bdf8de9973e1942,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2771109086433302446, guid: 40405a4942cc43342bdf8de9973e1942,
         type: 3}
