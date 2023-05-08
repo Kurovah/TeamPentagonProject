@@ -350,6 +350,22 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
         return 0;
     }
 
+    public void Respawn()
+    {
+        var points = FindObjectsOfType<RespawnPoint>();
+        GameObject closest = points[0].gameObject;
+        foreach(var g in points)
+        {
+            if(Vector3.Distance(transform.position, closest.gameObject.transform.position) > Vector3.Distance(transform.position, g.gameObject.transform.position))
+            {
+                closest = g.gameObject;
+            }
+        }
+
+        transform.position = closest.transform.position;
+        transform.rotation = closest.transform.rotation;
+    }
+    [PunRPC]
     public void GiveAbillity(int type)
     {
         var a = Instantiate(
@@ -358,6 +374,11 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
             );
 
         abilityComponent = GetComponentInChildren<IRangerAbility>();
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("GiveAbillity", RpcTarget.Others, type);
+        }
 
     }
 }
