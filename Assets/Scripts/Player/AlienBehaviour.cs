@@ -146,7 +146,10 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     void EndSiphon()
     {
         siphonEffect.Stop();
-        StopCoroutine(siphonCR);
+
+        if(siphonCR != null)
+            StopCoroutine(siphonCR);
+
         if (photonView.IsMine)
         {
             photonView.RPC("EndSiphon", RpcTarget.Others);

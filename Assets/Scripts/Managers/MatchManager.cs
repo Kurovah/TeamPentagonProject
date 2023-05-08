@@ -78,7 +78,6 @@ public class MatchManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ChangeAlienResource(int amount)
     {
-
         alienResource += amount;
         if (photonView.IsMine)
         {
