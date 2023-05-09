@@ -157,6 +157,7 @@ MonoBehaviour:
   effectsSource: {fileID: 1557018864}
   music:
   - {fileID: 8300000, guid: 50a2da628021683418da277ae9a156f3, type: 3}
+  - {fileID: 8300000, guid: 9e11a67be6278f743b62e138cb260cbc, type: 3}
   soundFX: []
 --- !u!4 &52301255
 Transform:
