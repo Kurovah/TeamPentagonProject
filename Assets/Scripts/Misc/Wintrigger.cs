@@ -8,7 +8,7 @@ public class Wintrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Ranger")
         {
-            MatchManager.instance.RangerWinCall();
+            MatchManager.instance.RangerWin();
         }
     }
 }

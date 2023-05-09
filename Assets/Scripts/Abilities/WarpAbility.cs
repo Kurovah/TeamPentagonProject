@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
 {
+    public float warpSpeed;
     public float warpTime;
     Transform playerTransform;
     public ParticleSystem warpEffect;
@@ -24,7 +25,7 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
             Vector2 InputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             OnInput(InputAxis);
-            transform.localPosition += transform.forward * 10 * Time.deltaTime;
+            transform.localPosition += transform.forward * warpSpeed * Time.deltaTime;
         }
     }
 
