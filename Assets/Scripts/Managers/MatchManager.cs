@@ -26,6 +26,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     public TMP_Text beforeCurrency, afterCurrency, beforeBP, afterBP;
 
     bool matchConcluded = false;
+    public int alienResourceCap = 30;
 
     [Header("OutcomeBanners")]
     public GameObject outcomeBanner;
@@ -60,6 +61,10 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         
     }
+    public void RangerWinCall()
+    {
+        photonView.RPC("RangerWin", RpcTarget.All);
+    }
 
     [PunRPC]
     public void RangerWin()
@@ -84,7 +89,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
             photonView.RPC("RangerWin", RpcTarget.OthersBuffered);
         }
     }
-
+    
     [PunRPC]
     public void AlienWin()
     {
@@ -105,6 +110,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
         }
     }
 
+    
     void UpdateStats(bool winner)
     {
         beforeCurrency.text = GameManager.instance.playerData.medals.ToString();
@@ -116,29 +122,31 @@ public class MatchManager : MonoBehaviourPunCallbacks
         afterCurrency.text = GameManager.instance.playerData.battlePassExp.ToString();
 
     }
-
+    
+    [PunRPC]
     public void ChangeRangerHP(int amount)
     {
         rangerHP += amount;
-        CheckRangersDead();
         if (photonView.IsMine)
         {
+            CheckRangersDead();
             photonView.RPC("ChangeRangerHPRPC", RpcTarget.OthersBuffered);
         }
-        
     }
     void CheckRangersDead()
     {
         if(rangerHP == 0)
         {
-            AlienWin();
+            photonView.RPC("AlienWin", RpcTarget.All);
         }
     }
 
     [PunRPC]
     public void ChangeAlienResource(int amount)
     {
-        alienResource += amount;
+        int newValue = alienResource + amount;
+        alienResource = newValue>alienResourceCap ? alienResourceCap : newValue;
+
         if (photonView.IsMine)
         {
             photonView.RPC("ChangeAlienResource", RpcTarget.OthersBuffered, amount);
