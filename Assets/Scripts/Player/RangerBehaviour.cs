@@ -385,7 +385,7 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void PlaceHeadGear(int index)
+    public void PlaceHeadGear(int index)
     {
         if (headGearPlace.childCount > 0)
         {

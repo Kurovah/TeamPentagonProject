@@ -56,7 +56,10 @@ public class GameManager : MonoBehaviour
     {
         playerData.medals += amount;
     }
-
+    public void ChangeBPExp(int amount)
+    {
+        playerData.battlePassExp += amount;
+    }
     IEnumerator LoadingProgress()
     {
         for (int i = 0; i < loadingops.Count; i++)
