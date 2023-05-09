@@ -18,15 +18,16 @@ public class Alien_Mine : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        if(hasExploded && !explosionSystem.IsAlive())
+        if(hasExploded && !explosionSystem.IsAlive() && PhotonNetwork.MasterClient == PhotonNetwork.LocalPlayer)
         {
             PhotonNetwork.Destroy(gameObject);
         }
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Ranger")
+        if(other.gameObject.tag == "Ranger" && !hasExploded)
         {
             Explode();
         }
