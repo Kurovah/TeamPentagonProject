@@ -4861,7 +4861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd616c724c22054e9b4bcf815d9cc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warpTime: 0.2
+  warpSpeed: 5
+  warpTime: 0.4
   warpEffect: {fileID: 628593013658067356}
 --- !u!114 &-8700519244953101169
 MonoBehaviour:

@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoom: 5
-  target: {fileID: 0}
+  target: {fileID: 5419326578898511226}
 --- !u!114 &1103836920960160437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 5419326578898511226}
+  m_Follow: {fileID: 5419326578898511226}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_text: HP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2f0f96f0e2130f04cb8185fd51387ce9, type: 2}
-  m_sharedMaterial: {fileID: -9023166575771446488, guid: 2f0f96f0e2130f04cb8185fd51387ce9,
+  m_sharedMaterial: {fileID: -3859523809863286913, guid: 2f0f96f0e2130f04cb8185fd51387ce9,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -725,8 +725,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 9.08, z: -4.43}
-  m_XDamping: 20
-  m_YDamping: 20
+  m_XDamping: 1
+  m_YDamping: 1
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
