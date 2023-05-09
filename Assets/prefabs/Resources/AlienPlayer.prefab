@@ -10331,7 +10331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625bd029292b8a644a7a876a8a13459a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 7
   meshTransform: {fileID: 9076359405384323604}
   critterObject: {fileID: 4934469556788477891, guid: 2b0c1099c7e1dc041944431d504304f5,
     type: 3}

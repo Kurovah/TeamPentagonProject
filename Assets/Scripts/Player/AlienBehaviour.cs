@@ -169,7 +169,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
             for(int i = 0; i < resourceSpots.Count; i++)
             {
                 siphonEffect.Play();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
                 if(resourceSpots.Count > 0)
                     if(photonView.IsMine)
                         AddResource(1);
