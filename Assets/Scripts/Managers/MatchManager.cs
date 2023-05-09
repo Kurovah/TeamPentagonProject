@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
 using TMPro;
@@ -14,7 +15,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 {
     public static MatchManager instance;
     public Transform r1spawn, r2spawn, a1spawn, a2spawn;
-    public GameObject rangerObject, rangerCam, alienObject, alienCam;
+    public GameObject rangerObject, alienObject;
 
     public int rangerHP = 6;
     public int alienResource = 0;
@@ -22,6 +23,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     Coroutine countdownCR;
     public TMP_Text timerText;
+    public TMP_Text beforeCurrency, afterCurrency, beforeBP, afterBP;
 
     bool matchConcluded = false;
 
@@ -72,11 +74,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
         bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 0;
 
-        GameManager.instance.ChangeCurrency(isWinner? 10: 5);
+        
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
         NetworkingManager.instance.SetReady(false);
-
+        UpdateStats(isWinner);
         if (photonView.IsMine)
         {
             photonView.RPC("RangerWin", RpcTarget.OthersBuffered);
@@ -93,16 +95,26 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
         outcomeBanner.SetActive(true);
         bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 1;
-
-        GameManager.instance.ChangeCurrency(isWinner ? 10 : 5);
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
         NetworkingManager.instance.SetReady(false);
-
+        UpdateStats(isWinner);
         if (photonView.IsMine)
         {
             photonView.RPC("AlienWin", RpcTarget.OthersBuffered);
         }
+    }
+
+    void UpdateStats(bool winner)
+    {
+        beforeCurrency.text = GameManager.instance.playerData.medals.ToString();
+        GameManager.instance.ChangeCurrency(winner ? 10 : 5);
+        afterCurrency.text = GameManager.instance.playerData.medals.ToString();
+
+        beforeCurrency.text = GameManager.instance.playerData.battlePassExp.ToString();
+        GameManager.instance.ChangeBPExp(winner ? 10 : 5);
+        afterCurrency.text = GameManager.instance.playerData.battlePassExp.ToString();
+
     }
 
     public void ChangeRangerHP(int amount)
@@ -138,6 +150,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     void SpawnPlayerChar()
     {
         int t = NetworkingManager.instance.GetTeam();
+        int headindex = (int)PhotonNetwork.LocalPlayer.CustomProperties["HeadItem"];
         bool isOtherMember  = false;
         //check if you are the second player for a group
         foreach(Player p in PhotonNetwork.PlayerList)
@@ -176,9 +189,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
         }
 
         var a = PhotonNetwork.Instantiate(g.name, tr.position, tr.rotation);
-        if(t==0 && isOtherMember)
+        if(t==0)
         {
-            a.GetComponent<RangerBehaviour>().GiveAbillity(1);
+            a.GetComponent<RangerBehaviour>().PlaceHeadGear(headindex);
+            if (isOtherMember)
+                a.GetComponent<RangerBehaviour>().GiveAbillity(1);
         }
         SceneManager.MoveGameObjectToScene(a, gameObject.scene);
     }
