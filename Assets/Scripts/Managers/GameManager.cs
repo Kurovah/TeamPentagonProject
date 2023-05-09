@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         body
     }
 
+
     public void SetColorIndex(int index, CustomSlots slot)
     {
         switch (slot)

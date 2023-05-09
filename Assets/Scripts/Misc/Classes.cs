@@ -7,7 +7,8 @@ public class PlayerData
 {
     public string playerName;
     public int medals;
-    public int battlePasExp;
+    public int battlePassExp;
+    public int battlePassLevel;
     public RangerCustomSettings rangerCustom;
 
     public PlayerData()

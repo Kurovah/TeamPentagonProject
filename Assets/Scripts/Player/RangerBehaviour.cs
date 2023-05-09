@@ -16,9 +16,6 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     public GameObject cameraObject;
     public GameObject HUDObject;
 
-    [Header("Input")]
-    public InputActionAsset actions;
-
     //public float jumpheight;
     public float  movespeed, gravity;
     float lastYVel;
@@ -110,7 +107,7 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
 
         
         //Vector2 inputAxis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        Vector2 inputAxis = actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>();
+        Vector2 inputAxis = InputManager.instance.actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>();
 
         lastYVel = velocity.y;
         velocity = rightVec * inputAxis.x + forwardVec * inputAxis.y;
@@ -135,22 +132,22 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
 
 
         //attacking
-        if (actions.actionMaps[0].FindAction("Attack").triggered)
+        if (InputManager.instance.actions.actionMaps[0].FindAction("Attack").triggered)
         {
             //PhotonNetwork.Instantiate(bulletPrefab.name, transform.position + Vector3.up, meshTransform.rotation);
             AttackRPC();
         }
             //using  ability
-        if (actions.actionMaps[0].FindAction("Ability").triggered && abilityComponent != null)
+        if (InputManager.instance.actions.actionMaps[0].FindAction("Ability").triggered && abilityComponent != null)
         {
             AbilityStartRPC();
         }
     }
     void StateUsingAbility()
     {
-        AbilityUseRPC(actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>());
+        AbilityUseRPC(InputManager.instance.actions.actionMaps[0].FindAction("Move").ReadValue<Vector2>());
 
-        if (actions.actionMaps[0].FindAction("Ability").ReadValue<float>() == 0)
+        if (InputManager.instance.actions.actionMaps[0].FindAction("Ability").ReadValue<float>() == 0)
         {
             AbilityEndRPC();
         }
