@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
 {
+    public float warpSpeed;
     public float warpTime;
     Transform playerTransform;
     public ParticleSystem warpEffect;
     bool abilityActive = false;
+    private Coroutine warpTimeCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
             Vector2 InputAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
             OnInput(InputAxis);
-            transform.localPosition += transform.forward * 10 * Time.deltaTime;
+            transform.localPosition += transform.forward * warpSpeed * Time.deltaTime;
         }
     }
 
@@ -33,7 +35,7 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
         transform.forward = GetComponentInParent<RangerBehaviour>().GetModelFacing();
         abilityActive = true;
         warpEffect.Play();
-        StartCoroutine(WarpHoldTimer());
+        warpTimeCoroutine = StartCoroutine(WarpHoldTimer());
             
     }
 
@@ -42,6 +44,7 @@ public class WarpAbility : MonoBehaviourPunCallbacks, IRangerAbility
     {
         if(abilityActive)
         {
+            StopCoroutine(warpTimeCoroutine);
             warpEffect.Stop();
             abilityActive = false;
             SetUserPosition(transform.position - Vector3.up / 2);
