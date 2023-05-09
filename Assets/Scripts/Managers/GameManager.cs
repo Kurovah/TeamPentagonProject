@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerData = new PlayerData();
-        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame

@@ -18,10 +18,12 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public int rangerHP = 6;
     public int alienResource = 0;
-    public int MatchTime = 120;
+    public int MatchTime;
 
     Coroutine countdownCR;
     public TMP_Text timerText;
+
+    bool matchConcluded = false;
 
     [Header("OutcomeBanners")]
     public GameObject outcomeBanner;
@@ -32,6 +34,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         instance = this;
         SpawnPlayerChar();
+        MatchTime = 120;
         countdownCR = StartCoroutine(Countdown());
     }
 
@@ -44,7 +47,9 @@ public class MatchManager : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(1);
         }
 
+        yield return null;
         AlienWin();
+        
     }
 
     // Update is called once per frame
@@ -56,7 +61,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RangerWin()
     {
-        
+
+        if (matchConcluded)
+            return;
+
+        matchConcluded = true;
         outcomeBanner.SetActive(true);
         StopCoroutine(countdownCR);
 
@@ -76,6 +85,11 @@ public class MatchManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void AlienWin()
     {
+        if (matchConcluded)
+            return;
+
+        matchConcluded = true;
+
         outcomeBanner.SetActive(true);
         bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 1;
 
