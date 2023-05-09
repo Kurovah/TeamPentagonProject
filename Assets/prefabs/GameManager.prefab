@@ -49,11 +49,17 @@ MonoBehaviour:
   playerData:
     playerName: Default Name
     medals: 0
+    battlePassExp: 0
     rangerCustom:
       skinIndex: 0
       bodyIndex: 0
+    unlocked: 000000
+    HeadGearSetting: 0
   colList: {fileID: 11400000, guid: 399a4ac16053cd54cbfc9fff6cc6419e, type: 2}
-  TestMode: 0
+  headGear:
+  - {fileID: 919132149155446097, guid: 3243fef68a3dc9f45a4aa860c9c4344b, type: 3}
+  - {fileID: 919132149155446097, guid: b7621942e39a45342af979ad08840083, type: 3}
+  loadingDone: 0
 --- !u!114 &1418618657788195770
 MonoBehaviour:
   m_ObjectHideFlags: 0

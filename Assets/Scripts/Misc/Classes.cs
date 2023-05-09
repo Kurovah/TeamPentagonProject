@@ -11,7 +11,7 @@ public class PlayerData
     public float battlePassExp;
     public RangerCustomSettings rangerCustom;
     public List<bool> unlocked = new List<bool> { false, false, false };
-
+    public int HeadGearSetting = 0;
     public PlayerData()
     {
         playerName = "Default Name";

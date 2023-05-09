@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using JetBrains.Annotations;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,12 +16,14 @@ public class GameManager : MonoBehaviour
     public UnityAction onRangerColorChanged;
     public ColourList colList;
 
+    public List<GameObject> headGear = new List<GameObject>();
+
     public bool loadingDone;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        playerData = new PlayerData();
+        playerData = LoadData();
         SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Additive);
     }
 
@@ -103,13 +108,38 @@ public class GameManager : MonoBehaviour
         onRangerColorChanged?.Invoke();
     }
 
-    public void SaveData()
+    public void SetHeadGearIndex(int index)
     {
-
+        playerData.HeadGearSetting = index;
     }
 
-    public void LoadData()
+    public void SaveData()
     {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/playerdata.save";
+        FileStream stream = new FileStream(path, FileMode.Create);
 
+        formatter.Serialize(stream, playerData);
+        stream.Close();
+    }
+
+    public PlayerData LoadData()
+    {
+        PlayerData data;
+        string path = Application.persistentDataPath + "/playerdata.save";
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            data = formatter.Deserialize(stream) as PlayerData;
+            stream.Close();
+
+        } else
+        {
+            data = new PlayerData();
+            
+        }
+        return data;
     }
 }

@@ -36,6 +36,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
         SpawnPlayerChar();
         MatchTime = 120;
         countdownCR = StartCoroutine(Countdown());
+        SoundManager.instance.PlaySong(1);
     }
 
     IEnumerator Countdown()
@@ -184,6 +185,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public void BackToLobby()
     {
+        SoundManager.instance.PlaySong(0);
         NetworkingManager.instance.BackToLobby();
     }
 }
