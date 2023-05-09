@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CustomisationRoom.unity
     guid: 412372ea4f9b6f5489d661cc3b02065f
   - enabled: 1
+    path: Assets/Scenes/BattlePassScene.unity
+    guid: 4d13162a3f823aa42a17988bce2273c6
+  - enabled: 1
     path: Assets/Scenes/TestMap.unity
     guid: be8216b5806dfc94fb287af129f60c72
   m_configObjects: {}
