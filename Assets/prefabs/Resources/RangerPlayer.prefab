@@ -384,7 +384,6 @@ MonoBehaviour:
   animator: {fileID: 5025904529072935493}
   cameraObject: {fileID: 151226775318075513}
   HUDObject: {fileID: 7416391296433479682}
-  actions: {fileID: -944628639613478452, guid: 214e8d80717fbb34eb6754f9c2c82661, type: 3}
   movespeed: 8
   gravity: 0.1
   meshTransform: {fileID: 16000082256519887}
