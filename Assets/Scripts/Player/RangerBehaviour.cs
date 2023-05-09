@@ -180,17 +180,22 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
     public void GetHurt()
     {
-        if(FindObjectOfType<MatchManager>() != null)
-        {
-            MatchManager.instance.ChangeRangerHP(-1);
-        } else
-        {
-            OnboardingManager.instance.ChangeRangerHP(-1);
-        }
         animator.SetTrigger("hurt");
         state = CharacterStates.hurt;
+        if (photonView.IsMine)
+        {
+            photonView.RPC("ChangeRangerHPRPC", RpcTarget.OthersBuffered);
+            if(FindObjectOfType<MatchManager>() != null)
+            {
+                MatchManager.instance.ChangeRangerHP(-1);
+            } else
+            {
+                OnboardingManager.instance.ChangeRangerHP(-1);
+            }
+        }
     }
 
     void SetModelFacing(Vector3 _facing)

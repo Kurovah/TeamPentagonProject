@@ -86,27 +86,34 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
 
     void SummonMine()
     {
-        RaycastHit place;
-        if (HasResources(5) &&
-        Physics.Raycast(meshTransform.position, Vector3.down, out place, Mathf.Infinity, LayerMask.GetMask("Solid")))
-        {
-            SetResource(-5);
-            Instantiate(mineObject, place.point, Quaternion.identity);
-
-        }
+        
         if (photonView.IsMine)
         {
-            photonView.RPC("SummonMine", RpcTarget.Others);
+            RaycastHit place;
+            if (HasResources(5) &&
+            Physics.Raycast(meshTransform.position, Vector3.down, out place, Mathf.Infinity, LayerMask.GetMask("Solid")))
+            {
+                AddResource(-5);
+
+                photonView.RPC("MasterClientSummonMine", RpcTarget.MasterClient, place.point);
+            }
         }
     }
 
+    [PunRPC]
+    public void MasterClientSummonMine(Vector3 point)
+    {
+        PhotonNetwork.InstantiateRoomObject("Mine", point, Quaternion.identity);
+    }
+
+    [PunRPC]
     void SummonCritter()
     {
         RaycastHit place;
         if(HasResources(5) && 
         Physics.Raycast(meshTransform.position, Vector3.down, out place,Mathf.Infinity,LayerMask.GetMask("Solid")))
         {
-            SetResource(-5);
+            AddResource(-5);
             Instantiate(critterObject, place.point, Quaternion.identity);
             
         }
@@ -117,7 +124,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         }
     }
 
-    void SetResource(int amount)
+    void AddResource(int amount)
     {
         if (FindObjectOfType<MatchManager>() != null)
         {
@@ -132,17 +139,18 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     [PunRPC]
     void StartSiphon()
     {
-        siphonEffect.Play();
+        
+
         if (siphonCR != null)
             StopCoroutine(siphonCR);
-
         siphonCR = StartCoroutine(Siphon());
+        
         if (photonView.IsMine)
         {
             photonView.RPC("StartSiphon", RpcTarget.Others);
         }
     }
-
+    [PunRPC]
     void EndSiphon()
     {
         siphonEffect.Stop();
@@ -158,16 +166,23 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     
     IEnumerator Siphon()
     {
-        if(resourceSpots.Count > 0)
+        while(true)
         {
             for(int i = 0; i < resourceSpots.Count; i++)
             {
-                SetResource(1);
+                siphonEffect.Play();
+                yield return new WaitForSeconds(0.1f);
+                if(resourceSpots.Count > 0)
+                    AddResource(1);
             }
+            if(resourceSpots.Count <= 0)
+            {
+                siphonEffect.Stop();
+            }
+            yield return null;
         }
 
-        yield return new WaitForSeconds(1);
-        siphonCR = StartCoroutine(Siphon());
+        // siphonCR = StartCoroutine(Siphon());
     }
 
     bool HasResources(int amount)
