@@ -2,8 +2,11 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Timers;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +18,12 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public int rangerHP = 6;
     public int alienResource = 0;
-    public int alienResourceCap = 30;
+    public int MatchTime;
+
+    Coroutine countdownCR;
+    public TMP_Text timerText;
+
+    bool matchConcluded = false;
 
     [Header("OutcomeBanners")]
     public GameObject outcomeBanner;
@@ -26,6 +34,22 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         instance = this;
         SpawnPlayerChar();
+        MatchTime = 120;
+        countdownCR = StartCoroutine(Countdown());
+    }
+
+    IEnumerator Countdown()
+    {
+        while(MatchTime > 0)
+        {
+            MatchTime--;
+            timerText.text = MatchTime.ToString();
+            yield return new WaitForSeconds(1);
+        }
+
+        yield return null;
+        AlienWin();
+        
     }
 
     // Update is called once per frame
@@ -33,17 +57,17 @@ public class MatchManager : MonoBehaviourPunCallbacks
     {
         
     }
-    public void RangerWinCall()
-    {
-        photonView.RPC("RangerWin", RpcTarget.All);
-    }
 
     [PunRPC]
     public void RangerWin()
     {
-        
-        outcomeBanner.SetActive(true);
 
+        if (matchConcluded)
+            return;
+
+        matchConcluded = true;
+        outcomeBanner.SetActive(true);
+        StopCoroutine(countdownCR);
 
         bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 0;
 
@@ -51,10 +75,21 @@ public class MatchManager : MonoBehaviourPunCallbacks
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
         NetworkingManager.instance.SetReady(false);
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("RangerWin", RpcTarget.OthersBuffered);
+        }
     }
+
     [PunRPC]
     public void AlienWin()
     {
+        if (matchConcluded)
+            return;
+
+        matchConcluded = true;
+
         outcomeBanner.SetActive(true);
         bool isWinner = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerTeam"] == 1;
 
@@ -62,32 +97,35 @@ public class MatchManager : MonoBehaviourPunCallbacks
         loserText.SetActive(!isWinner);
         winnerText.SetActive(isWinner);
         NetworkingManager.instance.SetReady(false);
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("AlienWin", RpcTarget.OthersBuffered);
+        }
     }
 
-    [PunRPC]
     public void ChangeRangerHP(int amount)
     {
         rangerHP += amount;
+        CheckRangersDead();
         if (photonView.IsMine)
         {
-            CheckRangersDead();
             photonView.RPC("ChangeRangerHPRPC", RpcTarget.OthersBuffered);
         }
+        
     }
     void CheckRangersDead()
     {
         if(rangerHP == 0)
         {
-            photonView.RPC("AlienWin", RpcTarget.All);
+            AlienWin();
         }
     }
 
     [PunRPC]
     public void ChangeAlienResource(int amount)
     {
-        int newValue = alienResource + amount;
-        alienResource = newValue>alienResourceCap ? alienResourceCap : newValue;
-
+        alienResource += amount;
         if (photonView.IsMine)
         {
             photonView.RPC("ChangeAlienResource", RpcTarget.OthersBuffered, amount);

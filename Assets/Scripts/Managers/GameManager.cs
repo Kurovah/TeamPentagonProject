@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerData = new PlayerData();
-        SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("StartScreen", LoadSceneMode.Additive);
     }
 
     // Update is called once per frame
@@ -83,6 +83,12 @@ public class GameManager : MonoBehaviour
         body
     }
 
+    public void UnlockItem(int index)
+    {
+        index = Mathf.Clamp(index, 0, playerData.unlocked.Count);
+        playerData.unlocked[index] = true;
+    }
+
     public void SetColorIndex(int index, CustomSlots slot)
     {
         switch (slot)
@@ -95,5 +101,15 @@ public class GameManager : MonoBehaviour
                 break;
         }
         onRangerColorChanged?.Invoke();
+    }
+
+    public void SaveData()
+    {
+
+    }
+
+    public void LoadData()
+    {
+
     }
 }

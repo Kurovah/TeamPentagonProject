@@ -67,15 +67,9 @@ MonoBehaviour:
   - StartSiphon
   - ChangeAlienResource
   - Explode
-  - EndSiphon
+  - Siphon
   - AlienWin
-  - ChangeRangerHP
-  - GetHurt
-  - SummonCritter
-  - SummonMine
   - RangerWin
-  - MasterClientSummonMine
-  - MasterClientSummonCritter
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

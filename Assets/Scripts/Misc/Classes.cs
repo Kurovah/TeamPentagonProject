@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,9 @@ public class PlayerData
 {
     public string playerName;
     public int medals;
-    public int battlePasExp;
+    public float battlePassExp;
     public RangerCustomSettings rangerCustom;
+    public List<bool> unlocked = new List<bool> { false, false, false };
 
     public PlayerData()
     {
