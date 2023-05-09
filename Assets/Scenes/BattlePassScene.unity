@@ -358,7 +358,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 253491427}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686509968}
+        m_TargetAssemblyTypeName: BattlePassScreen, Assembly-CSharp
+        m_MethodName: UnlockItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &253491427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2960,7 +2972,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1793162090}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686509968}
+        m_TargetAssemblyTypeName: BattlePassScreen, Assembly-CSharp
+        m_MethodName: UnlockItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1793162090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3406,7 +3430,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1929438047}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686509968}
+        m_TargetAssemblyTypeName: BattlePassScreen, Assembly-CSharp
+        m_MethodName: UnlockItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1929438047
 MonoBehaviour:
   m_ObjectHideFlags: 0

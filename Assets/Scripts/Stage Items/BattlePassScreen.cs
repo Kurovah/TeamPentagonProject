@@ -29,7 +29,7 @@ public class BattlePassScreen : MonoBehaviour
     {
         for(int i = 0; i < unlockButtons.Count; i++)
         {
-            unlockButtons[i].enabled = i > (GameManager.instance.playerData.battlePassExp / 10) && !GameManager.instance.playerData.unlocked[i];
+            unlockButtons[i].enabled = i < Mathf.Floor(GameManager.instance.playerData.battlePassExp / 10) && !GameManager.instance.playerData.unlocked[i];
             boughtBanners[i].SetActive(GameManager.instance.playerData.unlocked[i]);
         }
     }
