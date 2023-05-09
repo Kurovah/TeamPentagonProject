@@ -4197,7 +4197,8 @@ MonoBehaviour:
   beforeCurrency: {fileID: 741717493}
   afterCurrency: {fileID: 1039482685}
   beforeBP: {fileID: 606726474}
-  afterBP: {fileID: 1039482685}
+  afterBP: {fileID: 294205931}
+  alienResourceCap: 30
   outcomeBanner: {fileID: 1317507565}
   loserText: {fileID: 1670630042}
   winnerText: {fileID: 292104188}

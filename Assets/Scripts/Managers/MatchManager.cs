@@ -117,6 +117,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
         GameManager.instance.ChangeCurrency(winner ? 10 : 5);
         afterCurrency.text = GameManager.instance.playerData.medals.ToString();
 
+        //
         beforeBP.text = GameManager.instance.playerData.battlePassExp.ToString();
         GameManager.instance.ChangeBPExp(winner ? 10 : 5);
         afterBP.text = GameManager.instance.playerData.battlePassExp.ToString();
