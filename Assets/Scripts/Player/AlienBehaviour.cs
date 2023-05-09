@@ -106,7 +106,6 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         PhotonNetwork.InstantiateRoomObject("Mine", point, Quaternion.identity);
     }
 
-    [PunRPC]
     void SummonCritter()
     {
         RaycastHit place;
@@ -114,14 +113,14 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
         Physics.Raycast(meshTransform.position, Vector3.down, out place,Mathf.Infinity,LayerMask.GetMask("Solid")))
         {
             AddResource(-5);
-            Instantiate(critterObject, place.point, Quaternion.identity);
+            photonView.RPC("MasterClientSummonCritter", RpcTarget.MasterClient, place.point);
             
         }
-
-        if (photonView.IsMine)
-        {
-            photonView.RPC("SummonCritter", RpcTarget.Others);
-        }
+    }
+    [PunRPC]
+    public void MasterClientSummonCritter(Vector3 point)
+    {
+        PhotonNetwork.InstantiateRoomObject("Mook", point, Quaternion.identity);
     }
 
     void AddResource(int amount)
@@ -168,12 +167,14 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     {
         while(true)
         {
+            
             for(int i = 0; i < resourceSpots.Count; i++)
             {
                 siphonEffect.Play();
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(1);
                 if(resourceSpots.Count > 0)
-                    AddResource(1);
+                    if(photonView.IsMine)
+                        AddResource(1);
             }
             if(resourceSpots.Count <= 0)
             {
@@ -181,18 +182,16 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
             }
             yield return null;
         }
-
-        // siphonCR = StartCoroutine(Siphon());
     }
 
     bool HasResources(int amount)
     {
         if (FindObjectOfType<MatchManager>())
         {
-            return amount < MatchManager.instance.alienResource;
+            return amount <= MatchManager.instance.alienResource;
         } else
         {
-            return amount < OnboardingManager.instance.alienResource;
+            return amount <= OnboardingManager.instance.alienResource;
         }
     }
 
