@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RangerColorCustomisationMenu : MonoBehaviour
 {
     public GameObject colorChangeButtonPrefab;
-    public Transform skinChangeTransform, bodyChangeTransform;
+    public Transform skinChangeTransform, headGearPlace;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +24,34 @@ public class RangerColorCustomisationMenu : MonoBehaviour
     void AddButtons()
     {
        
-        foreach(var i in GameManager.instance.colList.colors)
+        foreach(var i in GameManager.instance.headGear)
         {
             var a = Instantiate(colorChangeButtonPrefab, skinChangeTransform);
-            a.GetComponent<Image>().color = i.color;
-            a.GetComponent<Button>().onClick.AddListener(() => GameManager.instance.SetColorIndex(a.transform.GetSiblingIndex(), GameManager.CustomSlots.skin));
-
-            var b = Instantiate(colorChangeButtonPrefab, bodyChangeTransform);
-            b.GetComponent<Image>().color = i.color;
-            b.GetComponent<Button>().onClick.AddListener(() => GameManager.instance.SetColorIndex(b.transform.GetSiblingIndex(), GameManager.CustomSlots.body));
+            if(i == null)
+            {
+                a.GetComponentInChildren<TMP_Text>().text = "None";
+            } else
+            {
+                a.GetComponentInChildren<TMP_Text>().text = i.name;
+            }
+            
+            a.GetComponent<Button>().onClick.AddListener(() => GameManager.instance.SetHeadGearIndex(a.transform.GetSiblingIndex()));
+            a.GetComponent<Button>().onClick.AddListener(() => PlaceHeadGear(a.transform.GetSiblingIndex()));
         }
+    }
+
+    void PlaceHeadGear(int index)
+    {
+        if(headGearPlace.childCount > 0)
+        {
+            Destroy(headGearPlace.GetChild(0).gameObject);
+        }
+
+        if(GameManager.instance.headGear[index] != null)
+        {
+            var i = Instantiate(GameManager.instance.headGear[index], headGearPlace);
+            i.transform.localScale = Vector3.one * 0.1f;
+        }
+        
     }
 }

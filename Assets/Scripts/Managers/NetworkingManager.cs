@@ -89,6 +89,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
         playerProperties = new Hashtable();
         playerProperties.Add("playerTeam", 0);
         playerProperties.Add("isReady", false);
+        playerProperties.Add("HeadItem", GameManager.instance.playerData.HeadGearSetting);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
 
         joinedRoomAction?.Invoke();

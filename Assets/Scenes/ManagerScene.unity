@@ -402,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed11dd35bcfa64847bd1907df44451e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: {fileID: -944628639613478452, guid: 214e8d80717fbb34eb6754f9c2c82661, type: 3}
 --- !u!4 &1198003146
 Transform:
   m_ObjectHideFlags: 0
@@ -876,6 +875,28 @@ PrefabInstance:
       propertyPath: blackOutImage
       value: 
       objectReference: {fileID: 1773071779}
+    - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
+        type: 3}
+      propertyPath: headGear.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
+        type: 3}
+      propertyPath: headGear.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
+        type: 3}
+      propertyPath: headGear.Array.data[1]
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: 3243fef68a3dc9f45a4aa860c9c4344b,
+        type: 3}
+    - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
+        type: 3}
+      propertyPath: headGear.Array.data[2]
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: b7621942e39a45342af979ad08840083,
+        type: 3}
     - target: {fileID: 1418618657788195773, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
         type: 3}
       propertyPath: m_RootOrder

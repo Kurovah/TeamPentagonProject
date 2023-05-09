@@ -8,10 +8,12 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     public TMP_Text currency_text;
+    public Transform headGearPlace;
     // Start is called before the first frame update
     void Start()
     {
         AddButtonDestinations();
+        PlaceHeadGear(GameManager.instance.playerData.HeadGearSetting);
     }
 
     // Update is called once per frame
@@ -42,5 +44,20 @@ public class MainMenu : MonoBehaviour
             if (i == 0)
                 b.onClick.AddListener(() => NetworkingManager.instance.TryConnect());
         }
+    }
+
+    void PlaceHeadGear(int index)
+    {
+        if (headGearPlace.childCount > 0)
+        {
+            Destroy(headGearPlace.GetChild(0).gameObject);
+        }
+
+        if (GameManager.instance.headGear[index] != null)
+        {
+            var i = Instantiate(GameManager.instance.headGear[index], headGearPlace);
+            i.transform.localScale = Vector3.one * 0.1f;
+        }
+
     }
 }

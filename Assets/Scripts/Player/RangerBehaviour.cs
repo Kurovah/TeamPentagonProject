@@ -21,7 +21,7 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     float lastYVel;
     
     public Transform meshTransform;
-    
+    public Transform headGearPlace;
 
     public enum CharacterStates
     {
@@ -382,5 +382,25 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
             photonView.RPC("GiveAbillity", RpcTarget.Others, type);
         }
 
+    }
+
+    [PunRPC]
+    void PlaceHeadGear(int index)
+    {
+        if (headGearPlace.childCount > 0)
+        {
+            Destroy(headGearPlace.GetChild(0).gameObject);
+        }
+
+        if (GameManager.instance.headGear[index] != null)
+        {
+            var i = Instantiate(GameManager.instance.headGear[index], headGearPlace);
+            i.transform.localScale = Vector3.one * 0.1f;
+        }
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("PlaceHeadGear", RpcTarget.OthersBuffered, index);
+        }
     }
 }
