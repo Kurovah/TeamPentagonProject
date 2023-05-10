@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BattlePassScene.unity
     guid: 4d13162a3f823aa42a17988bce2273c6
   - enabled: 1
+    path: Assets/Scenes/SettingScene.unity
+    guid: 149cb8c89c78874439b832d15bc1fb3e
+  - enabled: 1
     path: Assets/Scenes/TestMap.unity
     guid: be8216b5806dfc94fb287af129f60c72
   m_configObjects: {}

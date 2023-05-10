@@ -119,7 +119,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
         //
         beforeBP.text = GameManager.instance.playerData.battlePassExp.ToString();
-        GameManager.instance.ChangeBPExp(winner ? 10 : 5);
+        GameManager.instance.ChangeBPExp(winner ? 5 : 2);
         afterBP.text = GameManager.instance.playerData.battlePassExp.ToString();
 
     }

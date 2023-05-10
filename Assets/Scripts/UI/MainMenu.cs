@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
 
     public void AddButtonDestinations()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             var b = transform.GetChild(i).gameObject.GetComponent<Button>();
             var d = transform.GetChild(i).gameObject.GetComponent<ButtonDestinationComponent>();

@@ -1,8 +1,10 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
+
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class RangerBehaviour : MonoBehaviourPunCallbacks
@@ -36,6 +38,10 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     [Header("Ability Object")]
     public GameObject telepathAbility;
     public GameObject warpAbility;
+    public Image abilityImage;
+    public Sprite warpsprite;
+    public Sprite teleSprite;
+    public TMP_Text abilityText;
 
     IRangerAbility abilityComponent;
 
@@ -376,6 +382,8 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
             );
 
         abilityComponent = GetComponentInChildren<IRangerAbility>();
+        abilityText.text = type == 0 ? "TelePath": "Warp";
+        abilityImage.sprite = type == 0 ? teleSprite: warpsprite;
 
         if (photonView.IsMine)
         {
