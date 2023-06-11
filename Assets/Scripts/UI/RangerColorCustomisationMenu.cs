@@ -24,7 +24,7 @@ public class RangerColorCustomisationMenu : MonoBehaviour
     void AddButtons()
     {
        
-        foreach(var i in GameManager.instance.headGear)
+        foreach(var i in GameManager.instance.cosmetics)
         {
             var a = Instantiate(colorChangeButtonPrefab, skinChangeTransform);
             if(i == null)
@@ -47,9 +47,9 @@ public class RangerColorCustomisationMenu : MonoBehaviour
             Destroy(headGearPlace.GetChild(0).gameObject);
         }
 
-        if(GameManager.instance.headGear[index] != null)
+        if(GameManager.instance.cosmetics[index] != null)
         {
-            var i = Instantiate(GameManager.instance.headGear[index], headGearPlace);
+            var i = Instantiate(GameManager.instance.cosmetics[index], headGearPlace);
             i.transform.localScale = Vector3.one * 0.1f;
         }
         

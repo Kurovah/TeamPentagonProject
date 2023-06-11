@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public UnityAction onRangerColorChanged;
     public ColourList colList;
 
-    public List<GameObject> headGear = new List<GameObject>();
+    public List<GameObject> cosmetics = new List<GameObject>();
 
     public bool loadingDone;
     // Start is called before the first frame update

@@ -58,3 +58,45 @@ public class ColorListing
         collapsed = false;
     }
 }
+
+[System.Serializable]
+public class GameItem
+{
+    public string itemName;
+}
+
+[System.Serializable]
+public class CosmeticItem : GameItem
+{
+    public GameObject itemToSpawn;
+    public bool unlocked;
+}
+
+[System.Serializable]
+public class PassItem
+{
+    public string itemName;
+    public int value;
+    public bool gotten;
+    public enum EPassItemType
+    {
+        bundle,
+        cosmeticUnlock
+    }
+
+    EPassItemType itemType = EPassItemType.bundle;
+
+    public PassItem(EPassItemType _itemType)
+    {
+        itemType = _itemType;
+        switch (itemType)
+        {
+            case EPassItemType.bundle:
+                itemName = $"Cosmo coin Bundle X{value}";
+                break;
+            case EPassItemType.cosmeticUnlock:
+                itemName = $"{GameManager.instance.cosmetics[value].name}";
+                break;
+        }
+    }
+}
