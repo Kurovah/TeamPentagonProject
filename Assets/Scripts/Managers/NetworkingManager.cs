@@ -20,6 +20,10 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
    [HideInInspector]
     public List<RoomInfo> rooms = new List<RoomInfo>();
 
+    private void Awake()
+    {
+        Pun2LocalConnector.Setup();
+    }
     // Start is called before the first frame update
     void Start()
     {
