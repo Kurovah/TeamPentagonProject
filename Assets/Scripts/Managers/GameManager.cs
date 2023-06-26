@@ -12,10 +12,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Image blackOutImage;
-    public PlayerData playerData;
-    public UnityAction onRangerColorChanged;
-    public ColourList colList;
 
+    
+    public UnityAction onRangerColorChanged;
+
+    [Header("Data")]
+    public PlayerData playerData;
+    public PassData currentBattlePass;
+    public ColourList colList;
     public List<GameObject> cosmetics = new List<GameObject>();
 
     public bool loadingDone;

@@ -321,6 +321,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39df1876fe98954489c38f125cf502a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: 
+  unlockButton: {fileID: 9119772167899233590}
+  item:
+    itemName: 
+    value: 0
+    gotten: 0
+  itemText: {fileID: 9119772168235459332}
+  unlockedNotifier: {fileID: 9119772166494275727}
 --- !u!1 &9119772167093939867
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +627,7 @@ GameObject:
   - component: {fileID: 9119772168235459331}
   - component: {fileID: 9119772168235459332}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Item Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

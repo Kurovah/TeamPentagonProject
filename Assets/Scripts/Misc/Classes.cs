@@ -84,19 +84,22 @@ public class PassItem
         cosmeticUnlock
     }
 
-    EPassItemType itemType = EPassItemType.bundle;
+    public EPassItemType itemType = EPassItemType.bundle;
 
-    public PassItem(EPassItemType _itemType)
+    public string GetItemName()
     {
-        itemType = _itemType;
+        string returnString = "";
+
         switch (itemType)
         {
             case EPassItemType.bundle:
-                itemName = $"Cosmo coin Bundle X{value}";
+                returnString = $"Cosmo coin Bundle X{value}";
                 break;
             case EPassItemType.cosmeticUnlock:
-                itemName = $"{GameManager.instance.cosmetics[value].name}";
+                returnString = $"{GameManager.instance.cosmetics[value].name}";
                 break;
         }
+
+        return returnString;
     }
 }

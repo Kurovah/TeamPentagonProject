@@ -19,7 +19,7 @@ public class MatchManager : MonoBehaviourPunCallbacks
 
     public int rangerHP = 6;
     public int alienResource = 0;
-    public int MatchTime;
+    public int MatchTime = 120;
 
     Coroutine countdownCR;
     public TMP_Text timerText;
@@ -33,13 +33,38 @@ public class MatchManager : MonoBehaviourPunCallbacks
     public GameObject loserText;
     public GameObject winnerText;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        MatchTime = 120;
+    }
+
     void Start()
     {
         instance = this;
         SpawnPlayerChar();
-        MatchTime = 120;
-        countdownCR = StartCoroutine(Countdown());
+        //countdownCR = StartCoroutine(Countdown());
+
+
+        //only master should start countdown
+        if(PhotonNetwork.IsMasterClient)
+            StartCountDown();
+
+
         SoundManager.instance.PlaySong(1);
+    }
+
+    [PunRPC]
+    void StartCountDown()
+    {
+        if (countdownCR != null)
+            StopCoroutine(countdownCR);
+
+        countdownCR = StartCoroutine(Countdown());
+
+        if (photonView.IsMine)
+        {
+            photonView.RPC("StartCountDown", RpcTarget.OthersBuffered);
+        }
     }
 
     IEnumerator Countdown()

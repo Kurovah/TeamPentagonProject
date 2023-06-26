@@ -12,32 +12,24 @@ public class BattlePassScreen : MonoBehaviour
 
     public List<Button> unlockButtons = new List<Button>();
     public List<GameObject> boughtBanners = new List<GameObject>();
+    public GameObject itemBox;
+    public Transform battlepassContent;
     // Start is called before the first frame update
     void Start()
     {
         fillImage.fillAmount = GameManager.instance.playerData.battlePassExp / 30;
-        CheckBPProgress();
+        LevelText.text = (GameManager.instance.playerData.battlePassExp / 10).ToString();
+        foreach(var item in GameManager.instance.currentBattlePass.passItems)
+        {
+            var i = Instantiate(itemBox, battlepassContent);
+            i.GetComponent<UnlockBanner>().item = item;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        LevelText.text = (GameManager.instance.playerData.battlePassExp / 10).ToString();
-    }
-
-    void CheckBPProgress()
-    {
-        for(int i = 0; i < unlockButtons.Count; i++)
-        {
-            unlockButtons[i].enabled = i < Mathf.Floor(GameManager.instance.playerData.battlePassExp / 10) && !GameManager.instance.playerData.unlocked[i];
-            boughtBanners[i].SetActive(GameManager.instance.playerData.unlocked[i]);
-        }
-    }
-
-    public void UnlockItem(int index)
-    {
-        GameManager.instance.UnlockItem(index);
-        CheckBPProgress();
+        
     }
 
     public void BackToMain()

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "new Battle pass", menuName = "Game Data/BattlePass")]
 public class PassData : ScriptableObject
 {
     public string passName;
-    List<PassItem> passItems = new List<PassItem>();
+    public List<PassItem> passItems = new List<PassItem>();
 }
