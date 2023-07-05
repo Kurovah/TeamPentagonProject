@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: GrassMat
+    second: {fileID: 2100000, guid: 3903b03a3b167a74298f1f06f01589e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material
     second: {fileID: 2100000, guid: 4972733f349f6af41bc6725fdb08fd61, type: 2}
   materials:
@@ -93,7 +98,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 2.5
+    globalScale: 250
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
