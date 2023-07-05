@@ -78,6 +78,7 @@ public class PassItem
     public string itemName;
     public int value;
     public bool gotten;
+    public bool displayInMenu;
     public enum EPassItemType
     {
         bundle,

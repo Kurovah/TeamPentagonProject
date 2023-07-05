@@ -155,15 +155,15 @@ public class MatchManager : MonoBehaviourPunCallbacks
         rangerHP += amount;
         if (photonView.IsMine)
         {
-            CheckRangersDead();
             photonView.RPC("ChangeRangerHPRPC", RpcTarget.OthersBuffered);
         }
+        CheckRangersDead();
     }
     void CheckRangersDead()
     {
-        if(rangerHP == 0)
+        if(rangerHP <= 0)
         {
-            photonView.RPC("AlienWin", RpcTarget.All);
+            photonView.RPC("AlienWin", RpcTarget.AllBuffered);
         }
     }
 

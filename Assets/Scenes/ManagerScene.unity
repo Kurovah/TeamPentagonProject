@@ -878,6 +878,12 @@ PrefabInstance:
       objectReference: {fileID: 1773071779}
     - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
         type: 3}
+      propertyPath: currentBattlePass
+      value: 
+      objectReference: {fileID: 11400000, guid: b1ef8ed83a0e36340a4676c9baaf605e,
+        type: 2}
+    - target: {fileID: 1418618657788195772, guid: 20dd9ac542ddbfb4f8cc888fc55b1ec2,
+        type: 3}
       propertyPath: headGear.Array.size
       value: 3
       objectReference: {fileID: 0}

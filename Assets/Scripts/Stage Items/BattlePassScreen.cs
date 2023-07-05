@@ -8,10 +8,6 @@ public class BattlePassScreen : MonoBehaviour
 {
     public Image fillImage;
     public TMP_Text LevelText;
-
-
-    public List<Button> unlockButtons = new List<Button>();
-    public List<GameObject> boughtBanners = new List<GameObject>();
     public GameObject itemBox;
     public Transform battlepassContent;
     // Start is called before the first frame update

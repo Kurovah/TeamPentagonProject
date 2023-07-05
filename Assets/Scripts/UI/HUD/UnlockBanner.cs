@@ -15,7 +15,7 @@ public class UnlockBanner : MonoBehaviour
     {
         unlockButton.enabled = !(item.gotten || transform.GetSiblingIndex() + 1 < Mathf.Floor(GameManager.instance.playerData.battlePassExp));
         unlockedNotifier.SetActive(item.gotten);
-        itemText.text = item.itemName;
+        itemText.text = item.GetItemName();
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class UnlockBanner : MonoBehaviour
         switch (item.itemType)
         {
             case PassItem.EPassItemType.bundle:
-
+                GameManager.instance.ChangeCurrency(item.value);
                 break;
             case PassItem.EPassItemType.cosmeticUnlock:
 
