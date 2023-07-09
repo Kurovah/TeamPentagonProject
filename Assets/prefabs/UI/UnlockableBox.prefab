@@ -269,7 +269,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 140, y: 0}
+  m_SizeDelta: {x: 140, y: 273.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9119772166883284515
 CanvasRenderer:
@@ -321,12 +321,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39df1876fe98954489c38f125cf502a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
   unlockButton: {fileID: 9119772167899233590}
   item:
     itemName: 
     value: 0
     gotten: 0
+    displayInMenu: 0
+    itemType: 0
   itemText: {fileID: 9119772168235459332}
   unlockedNotifier: {fileID: 9119772166494275727}
 --- !u!1 &9119772167093939867
@@ -588,10 +589,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BattlePassScreen, Assembly-CSharp
+      - m_Target: {fileID: 6924876380189329566}
+        m_TargetAssemblyTypeName: UnlockBanner, Assembly-CSharp
         m_MethodName: UnlockItem
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -650,8 +651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -28}
-  m_SizeDelta: {x: 115, y: 20}
+  m_AnchoredPosition: {x: 0, y: -50.3}
+  m_SizeDelta: {x: 115, y: 22.2702}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9119772168235459331
 CanvasRenderer:

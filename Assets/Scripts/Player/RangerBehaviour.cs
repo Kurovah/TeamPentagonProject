@@ -17,11 +17,14 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
 
     public GameObject cameraObject;
     public GameObject HUDObject;
+    public GameObject attackCollider;
 
+    public ParticleSystem slashEffect;
     //public float jumpheight;
     public float  movespeed, gravity;
     float lastYVel;
-    
+    bool isHitting = false;
+
     public Transform meshTransform;
     public Transform headGearPlace;
 
@@ -163,22 +166,21 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
 
     void StateAttacking()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.8f)
-        {
-            CheckHit();
-        }
-
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
-        {
-            HideModel();
-            state = CharacterStates.normal;
-        }
+        velocity = Vector3.zero;
+        //if (isHitting)
+        //{
+        //    var hits = Physics.OverlapSphere(transform.position, 5, LayerMask.GetMask("SpecialCollide"), QueryTriggerInteraction.Collide);
+        //    foreach(var i in hits)
+        //    {
+        //        i.gameObject.GetComponentInParent<MookBehaviour>().DestroyEnemy();
+        //    }
+        //}
     }
+
     void StateHurt()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
         {
-            HideModel();
             state = CharacterStates.normal;
         }
     }
@@ -261,9 +263,12 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
             hitList.Add(h5);
         }
     }
-    void CheckHit()
-    {
 
+    public void CheckHit()
+    {
+        
+        
+           
     }
 
     void AttackRPC()
@@ -320,6 +325,24 @@ public class RangerBehaviour : MonoBehaviourPunCallbacks
     public void ShowModel()
     {
         baton.SetActive(true);
+    }
+    public void ActivateHB()
+    {
+        attackCollider.SetActive(true);
+        isHitting = true;
+    }
+    public void DeactivateHB()
+    {
+        attackCollider.SetActive(false);
+        isHitting = false;
+    }
+    public void BackToNormalState()
+    {
+        state = CharacterStates.normal;
+    }
+    public void PlaySlashEffect()
+    {
+        slashEffect.Play();
     }
     private void OnDrawGizmos()
     {

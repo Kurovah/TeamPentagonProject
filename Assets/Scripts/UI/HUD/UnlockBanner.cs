@@ -13,7 +13,7 @@ public class UnlockBanner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        unlockButton.enabled = !(item.gotten || transform.GetSiblingIndex() + 1 < Mathf.Floor(GameManager.instance.playerData.battlePassExp));
+        unlockButton.enabled = !(item.gotten || transform.GetSiblingIndex() + 1 > Mathf.Floor(GameManager.instance.playerData.battlePassExp));
         unlockedNotifier.SetActive(item.gotten);
         itemText.text = item.GetItemName();
     }

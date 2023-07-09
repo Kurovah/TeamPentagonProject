@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ranger
+  - Hit
+  - Hurt
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - Special
   - Phaser
   - Deco
-  - 
-  - 
+  - Enemy
+  - SpecialCollide
   - 
   - 
   - 

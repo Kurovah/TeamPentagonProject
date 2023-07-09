@@ -53,6 +53,7 @@ public class MainMenu : MonoBehaviour
             Destroy(headGearPlace.GetChild(0).gameObject);
         }
 
+        
         if (GameManager.instance.cosmetics[index] != null)
         {
             var i = Instantiate(GameManager.instance.cosmetics[index], headGearPlace);

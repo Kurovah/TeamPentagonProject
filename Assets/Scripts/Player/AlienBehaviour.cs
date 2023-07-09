@@ -14,6 +14,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
 
     public GameObject alienCam;
     public GameObject HUD;
+    public AudioSource siphonSoundSource;
     public enum CharacterStates
     {
         Normal,
@@ -138,6 +139,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     [PunRPC]
     void StartSiphon()
     {
+        
         if (siphonCR != null)
             StopCoroutine(siphonCR);
         siphonCR = StartCoroutine(Siphon());
@@ -150,6 +152,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
     [PunRPC]
     void EndSiphon()
     {
+        siphonSoundSource.Stop();
         siphonEffect.Stop();
 
         if(siphonCR != null)
@@ -168,6 +171,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
             
             for(int i = 0; i < resourceSpots.Count; i++)
             {
+                siphonSoundSource.Play();
                 siphonEffect.Play();
                 yield return new WaitForSeconds(0.5f);
                 if(resourceSpots.Count > 0)
@@ -176,6 +180,7 @@ public class AlienBehaviour : MonoBehaviourPunCallbacks
             }
             if(resourceSpots.Count <= 0)
             {
+                siphonSoundSource.Stop();
                 siphonEffect.Stop();
             }
             yield return null;
